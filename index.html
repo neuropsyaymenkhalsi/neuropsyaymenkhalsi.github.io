@@ -42,40 +42,60 @@
     /* ─── HEADER ─── */
     header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-      height: 66px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 1.25rem;
-      background: rgba(8,14,28,0.96);
+      height: 56px;
+      display: flex; align-items: center;
+      padding: 0 0.75rem;
+      background: rgba(8,14,28,0.97);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
+      gap: 0;
     }
 
-    .logo { display: flex; align-items: center; gap: 0.75rem; }
+    /* Logo — left side, takes only what it needs */
+    .logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      flex: 1; min-width: 0; overflow: hidden;
+    }
     .logo-avatar {
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      border: 2px solid var(--gold);
-      overflow: hidden;
-      flex-shrink: 0;
-      background: var(--navy-mid);
+      width: 34px; height: 34px; flex-shrink: 0;
+      border-radius: 50%; border: 2px solid var(--gold);
+      overflow: hidden; background: var(--navy-mid);
     }
     .logo-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
-    .logo-text { display: flex; flex-direction: column; }
-    .logo-name { font-family: var(--font-d); font-size: 1rem; font-weight: 500; color: var(--white2); letter-spacing: 0.02em; line-height: 1.2; }
-    .logo-sub  { font-size: 0.6rem; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; }
+    .logo-text {
+      display: flex; flex-direction: column;
+      overflow: hidden; min-width: 0;
+    }
+    .logo-name {
+      font-family: var(--font-d); font-size: 0.82rem; font-weight: 500;
+      color: var(--white2); letter-spacing: 0.01em; line-height: 1.15;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .logo-sub {
+      font-size: 0.48rem; color: var(--gold);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
 
     nav.desk { display: none; align-items: center; gap: 2rem; }
-    nav.desk a { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color var(--trans); font-weight: 500; }
+    nav.desk a {
+      font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); transition: color var(--trans); font-weight: 500;
+    }
     nav.desk a:hover, nav.desk a.active { color: var(--white2); }
 
-    .hdr-right { display: flex; align-items: center; gap: 0.6rem; }
+    /* Right cluster — lang switcher + burger, no wrap */
+    .hdr-right {
+      display: flex; align-items: center; gap: 0.3rem;
+      flex-shrink: 0;
+    }
 
     /* hamburger */
     .burger {
-      width: 42px; height: 42px;
+      width: 36px; height: 36px;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
       cursor: pointer; background: none; border: none; padding: 4px;
-      -webkit-tap-highlight-color: transparent;
+      -webkit-tap-highlight-color: transparent; flex-shrink: 0;
     }
     .burger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
     .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -84,7 +104,7 @@
 
     /* drawer */
     .drawer {
-      position: fixed; top: 66px; left: 0; right: 0; bottom: 0; z-index: 290;
+      position: fixed; top: 56px; left: 0; right: 0; bottom: 0; z-index: 290;
       background: rgba(5,10,22,0.98); backdrop-filter: blur(24px);
       padding: 2rem 1.5rem 3rem;
       transform: translateX(100%); transition: transform 0.35s cubic-bezier(.4,0,.2,1);
@@ -145,13 +165,27 @@
     }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(6,14,28,0.35) 0%, rgba(6,14,28,0.25) 45%, rgba(6,14,28,0.88) 72%, rgba(6,14,28,0.99) 100%); }
 
-    .hero-content { position: relative; z-index: 1; padding: 2.5rem 1.25rem 3rem; max-width: 640px; }
+    .hero-content { position: relative; z-index: 1; padding: 2.5rem 1.25rem 3rem; max-width: 640px; padding-top: 4.5rem; }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.38rem 1rem; border: 1px solid var(--border); border-radius: 100px;
       font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
       margin-bottom: 1.5rem;
+      text-decoration: none; cursor: pointer;
+      transition: background var(--trans), border-color var(--trans), box-shadow var(--trans);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hero-badge:hover, .hero-badge:active {
+      background: rgba(201,169,110,0.1);
+      border-color: var(--gold);
+      box-shadow: 0 0 16px rgba(201,169,110,0.2);
+    }
+    /* small map pin icon after text */
+    .hero-badge::after {
+      content: " ↗";
+      font-size: 0.6rem;
+      opacity: 0.7;
     }
     .badge-dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; animation: pulse 2.2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
@@ -270,15 +304,6 @@
 
     /* ─── PUBLICATIONS ─── */
     #publications { background: var(--navy); }
-    .pub-grid { display: flex; flex-direction: column; gap: 1px; margin-top: 2.5rem; }
-    .pub-card {
-      background: #111e33; padding: 1.5rem 1.25rem;
-      display: flex; align-items: center; gap: 1rem;
-      border-left: 3px solid transparent; transition: all var(--trans);
-    }
-    .pub-card:hover { border-left-color: var(--gold); background: #152340; }
-    .pub-num { font-family: var(--font-d); font-size: 2.5rem; font-weight: 400; color: rgba(201,169,110,0.18); line-height: 1; min-width: 48px; }
-    .pub-txt { font-family: var(--font-d); font-size: 1.1rem; font-weight: 400; color: var(--white2); line-height: 1.4; }
 
     /* ─── CONTACT ─── */
     #infos { background: var(--navy-mid); }
@@ -345,9 +370,16 @@
     .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2.5rem 0; }
     .fcol h4 { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
     .fcol ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-    .fcol ul a { font-size: 0.82rem; color: var(--muted); transition: color var(--trans); }
+    .fcol ul a { font-size: 0.78rem; color: var(--muted); transition: color var(--trans); }
+    /* Mobile: footer legal links — prevent wrapping */
+    @media (max-width: 639px) {
+      .fcol ul { gap: 0.45rem; }
+      .fcol ul a { font-size: 0.72rem; }
+      .footer-bottom { font-size: 0.65rem; gap: 0.35rem; }
+      .footer-bottom span { display: block; }
+    }
     .fcol ul a:hover { color: var(--white); }
-    .footer-bottom { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border2); font-size: 0.72rem; color: var(--muted); }
+    .footer-bottom { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border2); font-size: 0.72rem; color: var(--muted); word-break: break-word; }
 
 
     /* Static map replacement */
@@ -439,7 +471,243 @@
       .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
     }
     @media (min-width: 860px) {
-      header { padding: 0 2.5rem; }
+      header { height: 66px; padding: 0 2.5rem; gap: 0; }
+      .logo-avatar { width: 42px; height: 42px; }
+      .logo-name { font-size: 1rem; }
+      .logo-sub  { font-size: 0.6rem; }
+      .lang-btn  { font-size: 0.68rem; padding: 0.25rem 0.5rem; }
+      nav.desk { display: flex; }
+      .burger { display: none; }
+      .drawer { display: none !important; }
+      .fab { display: none; }
+      .hdr-rdv-desk { display: inline-flex !important; }
+      section { padding: 7rem 3rem; }
+      footer { padding: 5rem 3rem 2.5rem; }
+      .profile-section { padding: 5rem 3rem; }
+      .profile-photo { width: 210px; height: 210px; }
+      .hero-content { padding: 3rem 3rem 4rem; padding-top: 3rem; }
+      .exp-layout { display: grid; grid-template-columns: 1fr 2.2fr; gap: 5rem; align-items: start; }
+      .exp-sticky { position: sticky; top: 100px; }
+      .ccard-grid { grid-template-columns: repeat(4, 1fr); }
+      .ccard { flex-direction: column; align-items: flex-start; gap: 0.75rem; border-left: none; border-top: 3px solid transparent; }
+      .ccard:hover { border-top-color: var(--gold); border-left-color: transparent; background: #152340; }
+    }
+    @media (min-width: 1024px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .hdr-rdv-desk { display: none; }
+  </style>
+
+  <style id="lang-styles">
+    /* Language Switcher — compact for mobile */
+    .lang-switcher {
+      display: flex; align-items: center; gap: 0.25rem;
+    }
+    .lang-btn {
+      background: none; border: 1.5px solid var(--border2); border-radius: 4px;
+      color: var(--muted); font-family: var(--font-b); font-size: 0.6rem;
+      font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.2rem 0.38rem; cursor: pointer; transition: all var(--trans);
+      line-height: 1; min-width: 26px; text-align: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .lang-btn.active { background: var(--gold); border-color: var(--gold); color: #0a0800; }
+    [dir="rtl"] * { font-family: 'Nunito', 'Segoe UI', Tahoma, sans-serif; }
+    [dir="rtl"] .logo-text, [dir="rtl"] .profile-info, [dir="rtl"] .ccard-body,
+    [dir="rtl"] .card-desc, [dir="rtl"] .hero-desc, [dir="rtl"] .pay-note,
+    [dir="rtl"] .footer-desc { text-align: right; }
+    [dir="rtl"] .spec-chips, [dir="rtl"] .hero-actions { justify-content: flex-start; }
+    [dir="rtl"] .hero-stats .stat { direction: rtl; }
+    [dir="rtl"] .drawer-link::after { content: '‹'; }
+    [dir="rtl"] .fcol ul { text-align: right; }
+    [dir="rtl"] .cat-head { flex-direction: row-reverse; }
+    [dir="rtl"] .ccard { flex-direction: row-reverse; text-align: right; }
+    [dir="rtl"] .footer-brand { flex-direction: row-reverse; }
+    [dir="rtl"] .card-head { flex-direction: row-reverse; }
+    [dir="rtl"] .card-link { flex-direction: row-reverse; }
+    [dir="rtl"] .link-arrow { transform: scaleX(-1); }
+    [dir="rtl"] .itin-in-wrap { flex-direction: row-reverse; }
+    [dir="rtl"] .pay-card { text-align: right; }
+    [dir="rtl"] .det-row { flex-direction: row-reverse; }
+    [dir="rtl"] nav.desk { flex-direction: row-reverse; }
+  
+    
+    
+    /* ══ EXPERTISE ACCORDION ════════════════════════════════════════ */
+    #expertise { background: var(--navy); padding: 4.5rem 1.25rem; }
+    @media(min-width:860px){ #expertise { padding: 7rem 3rem; } }
+
+    /* Intro */
+    .exp-intro { max-width: 700px; margin: 0 auto 2.5rem; text-align: center; }
+    .exp-intro .lead { margin-bottom: 1.5rem; }
+
+    /* ── Domain pill strip ───────────────────────────────────────── */
+    .domain-strip {
+      display: flex; flex-wrap: wrap; gap: .45rem;
+      justify-content: center; margin-bottom: 2rem;
+    }
+    .dpill {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .48rem 1.05rem; border-radius: 100px;
+      border: 1.5px solid var(--border2); background: transparent;
+      color: var(--muted); font-family: var(--font-b);
+      font-size: .75rem; font-weight: 600; letter-spacing: .05em;
+      cursor: pointer; transition: all .22s; white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dpill:hover { border-color: var(--gold); color: var(--gold); }
+    .dpill.active {
+      background: var(--gold); border-color: var(--gold);
+      color: #0a0800; box-shadow: 0 0 18px rgba(201,169,110,.3);
+    }
+    .dpill-icon { font-size: .95rem; line-height: 1; }
+
+    /* ── Accordion panel ─────────────────────────────────────────── */
+    .acc-panel {
+      max-height: 0; overflow: hidden;
+      transition: max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s;
+      opacity: 0;
+    }
+    .acc-panel.open { max-height: 1600px; opacity: 1; }
+
+    .acc-inner {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 0; overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    /* Panel header */
+    .acc-hdr {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.2rem 1.4rem;
+      border-bottom: 1px solid var(--border2);
+      background: rgba(255,255,255,.03);
+    }
+    .acc-hdr-icon { font-size: 1.6rem; line-height: 1; }
+    .acc-hdr-txt h3 {
+      font-family: var(--font-d); font-size: 1.15rem; font-weight: 500;
+      color: var(--white2); margin: 0 0 .15rem;
+    }
+    .acc-hdr-txt p {
+      font-size: .72rem; color: var(--muted); margin: 0;
+      letter-spacing: .04em;
+    }
+    .acc-dsm-ref {
+      margin-left: auto; flex-shrink: 0;
+      font-size: .6rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--gold);
+      background: rgba(201,169,110,.1); border: 1px solid var(--border);
+      border-radius: 6px; padding: .22rem .6rem; white-space: nowrap;
+    }
+    @media(max-width:500px){ .acc-dsm-ref { display: none; } }
+
+    /* Sub-categories inside panel */
+    .acc-sub {
+      padding: 1rem 1.4rem 1.4rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .subcat-label {
+      font-size: .62rem; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: .4rem;
+    }
+
+    /* Test cards inside panel */
+    .tcard-row { display: flex; flex-direction: column; gap: .55rem; }
+    .tcard {
+      display: flex; align-items: flex-start; gap: .7rem;
+      background: rgba(255,255,255,.03); border: 1px solid var(--border2);
+      border-radius: 8px; padding: .75rem 1rem;
+      transition: border-color .2s, background .2s;
+    }
+    .tcard:hover { border-color: var(--border); background: rgba(201,169,110,.05); }
+
+    /* age badge */
+    .abadge {
+      display: inline-block; font-size: .58rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: .15rem .48rem; border-radius: 100px;
+      flex-shrink: 0; margin-top: .18rem; white-space: nowrap;
+    }
+    .ab-child { background: rgba(74,171,240,.15); color: #7bc8ff; border: 1px solid rgba(74,171,240,.3); }
+    .ab-adult { background: rgba(201,169,110,.15); color: var(--gold); border: 1px solid var(--border); }
+    .ab-both  { background: rgba(144,216,144,.12); color: #90d890; border: 1px solid rgba(144,216,144,.25); }
+
+    /* code pill */
+    .tpill {
+      font-family: 'Courier New', monospace; font-size: .68rem; font-weight: 700;
+      background: rgba(201,169,110,.1); color: var(--gold-lt);
+      border: 1px solid rgba(201,169,110,.2); border-radius: 5px;
+      padding: .18rem .5rem; white-space: nowrap; flex-shrink: 0;
+      margin-top: .1rem; letter-spacing: .04em;
+    }
+    .tcard-body { flex: 1; min-width: 0; }
+    .tcard-nm   { font-size: .85rem; color: var(--white); line-height: 1.4; font-weight: 500; }
+    .tcard-det  { font-size: .72rem; color: var(--muted); margin-top: .22rem; line-height: 1.6; }
+    .tcard-det .dim {
+      display: inline-block; font-size: .6rem; font-weight: 600;
+      letter-spacing: .09em; text-transform: uppercase;
+      background: rgba(255,255,255,.06); color: var(--muted);
+      border-radius: 4px; padding: .06rem .38rem; margin-right: .3rem;
+    }
+
+    /* Legend */
+    .acc-legend {
+      margin-top: 1.6rem; text-align: center; font-size: .75rem;
+      color: var(--muted); display: flex; flex-wrap: wrap;
+      align-items: center; gap: .5rem; justify-content: center;
+    }
+    /* hide old elements if still present */
+    .exp-layout,.exp-sticky,.test-cats,.pop-tabs,.domain-grid,
+    .badge-legend,.dsm-grid,.exp-filter-bar,.dsm-legend,
+    .dsm-counter { display: none !important; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    .a1 { animation: fadeUp 0.7s 0.1s ease both; }
+    .a2 { animation: fadeUp 0.7s 0.2s ease both; }
+    .a3 { animation: fadeUp 0.7s 0.3s ease both; }
+    .a4 { animation: fadeUp 0.7s 0.4s ease both; }
+    .a5 { animation: fadeUp 0.7s 0.5s ease both; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── FAB ─── */
+    .fab {
+      position: fixed; bottom: 1.5rem; right: 1.25rem; z-index: 150;
+      display: flex; background: var(--gold); color: #0a0800;
+      border-radius: 50px; padding: 0.85rem 1.5rem;
+      font-family: var(--font-b); font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      box-shadow: 0 4px 24px rgba(201,169,110,0.35);
+      transition: all var(--trans); -webkit-tap-highlight-color: transparent;
+    }
+    .fab:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (min-width: 640px) {
+      .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+      .pay-grid    { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .profile-inner { flex-direction: row; align-items: flex-start; }
+      .profile-info { text-align: left; }
+      .profile-text { margin: 0; }
+      .spec-chips { justify-content: flex-start; }
+      .map-block { flex-direction: row; }
+      .map-wrap { flex: 1.5; aspect-ratio: auto; min-height: 340px; }
+      .itin-box { flex: 1; }
+      .ccard-grid { grid-template-columns: 1fr 1fr; }
+      .footer-cols { grid-template-columns: repeat(3, 1fr); }
+      .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+    @media (min-width: 860px) {
+      header { height: 66px; padding: 0 2.5rem; gap: 0; }
+      .logo-avatar { width: 42px; height: 42px; }
+      .logo-name { font-size: 1rem; }
+      .logo-sub  { font-size: 0.6rem; }
+      .lang-btn  { font-size: 0.68rem; padding: 0.25rem 0.5rem; min-width: unset; }
+      .hdr-right { gap: 0.6rem; }
       nav.desk { display: flex; }
       .burger { display: none; }
       .drawer { display: none !important; }
@@ -462,6 +730,139 @@
 
     .hdr-rdv-desk { display: none; }
   </style>
+
+  <style id="lang-styles">
+    /* Language Switcher — mobile-first compact */
+    .lang-switcher {
+      display: flex; align-items: center; gap: 0.2rem;
+      flex-shrink: 0;
+    }
+    .lang-btn {
+      background: none;
+      border: 1.5px solid rgba(201,169,110,0.25);
+      border-radius: 4px;
+      color: var(--muted);
+      font-family: var(--font-b); font-size: 0.58rem;
+      font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.18rem 0.32rem;
+      cursor: pointer; transition: all var(--trans);
+      line-height: 1; min-width: 24px; text-align: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .lang-btn.active { background: var(--gold); border-color: var(--gold); color: #0a0800; }
+    [dir="rtl"] * { font-family: 'Nunito', 'Segoe UI', Tahoma, sans-serif; }
+    [dir="rtl"] .logo-text, [dir="rtl"] .profile-info, [dir="rtl"] .ccard-body,
+    [dir="rtl"] .card-desc, [dir="rtl"] .hero-desc, [dir="rtl"] .pay-note,
+    [dir="rtl"] .footer-desc { text-align: right; }
+    [dir="rtl"] .spec-chips, [dir="rtl"] .hero-actions { justify-content: flex-start; }
+    [dir="rtl"] .hero-stats .stat { direction: rtl; }
+    [dir="rtl"] .drawer-link::after { content: '‹'; }
+    [dir="rtl"] .fcol ul { text-align: right; }
+    [dir="rtl"] .cat-head { flex-direction: row-reverse; }
+    [dir="rtl"] .ccard { flex-direction: row-reverse; text-align: right; }
+    [dir="rtl"] .footer-brand { flex-direction: row-reverse; }
+    [dir="rtl"] .card-head { flex-direction: row-reverse; }
+    [dir="rtl"] .card-link { flex-direction: row-reverse; }
+    [dir="rtl"] .link-arrow { transform: scaleX(-1); }
+    [dir="rtl"] .itin-in-wrap { flex-direction: row-reverse; }
+    [dir="rtl"] .pay-card { text-align: right; }
+    [dir="rtl"] .det-row { flex-direction: row-reverse; }
+    [dir="rtl"] nav.desk { flex-direction: row-reverse; }
+  
+    /* ── EXPERTISE REDESIGN ── */
+    #expertise { background: var(--navy); }
+    .exp-intro { max-width: 660px; margin: 0 auto 3rem; text-align: center; }
+    .exp-intro .lead { margin-bottom: 1.5rem; }
+
+    /* Population tabs */
+    .pop-tabs {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      justify-content: center; margin-bottom: 2.5rem;
+    }
+    .pop-tab {
+      padding: 0.55rem 1.2rem; border-radius: 100px;
+      border: 1.5px solid var(--border2); background: transparent;
+      color: var(--muted); font-family: var(--font-b); font-size: 0.8rem;
+      font-weight: 600; letter-spacing: 0.06em; cursor: pointer;
+      transition: all var(--trans); white-space: nowrap;
+    }
+    .pop-tab:hover { border-color: var(--gold); color: var(--gold); }
+    .pop-tab.active { background: var(--gold); border-color: var(--gold); color: #0a0800; }
+
+    /* Domain grid */
+    .domain-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    @media (min-width: 700px) {
+      .domain-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 1000px) {
+      .domain-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .domain-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border2);
+      border-radius: 10px; overflow: hidden;
+      transition: border-color var(--trans), box-shadow var(--trans);
+    }
+    .domain-card:hover { border-color: var(--border); box-shadow: 0 0 24px rgba(201,169,110,0.07); }
+    .domain-card.hidden { display: none; }
+
+    .domain-head {
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 1.1rem 1.25rem; background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--border2);
+    }
+    .domain-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; }
+    .domain-title {
+      font-family: var(--font-d); font-size: 1.05rem; font-weight: 500;
+      color: var(--white2); line-height: 1.2;
+    }
+    .domain-sub { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; letter-spacing: 0.04em; }
+
+    .test-list { padding: 0.5rem 0; }
+    .test-row {
+      display: flex; align-items: flex-start; gap: 0.7rem;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background var(--trans);
+    }
+    .test-row:last-child { border-bottom: none; }
+    .test-row:hover { background: rgba(201,169,110,0.04); }
+    .test-row.hidden { display: none; }
+
+    /* Badges */
+    .test-badge {
+      display: inline-block; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.18rem 0.55rem; border-radius: 100px;
+      white-space: nowrap; flex-shrink: 0; margin-top: 0.15rem;
+    }
+    .test-badge.child  { background: rgba(100,180,255,0.15); color: #7bc8ff; border: 1px solid rgba(100,180,255,0.3); }
+    .test-badge.adult  { background: rgba(201,169,110,0.15); color: var(--gold); border: 1px solid var(--border); }
+    .test-badge.both   { background: rgba(160,220,160,0.12); color: #90d890; border: 1px solid rgba(160,220,160,0.25); }
+
+    .test-info { flex: 1; min-width: 0; }
+    .test-nm { font-size: 0.88rem; color: var(--white); line-height: 1.4; }
+    .test-det { font-size: 0.74rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.55; }
+    /* keep .test-code from original */
+
+    /* Legend */
+    .badge-legend {
+      margin-top: 2rem; text-align: center;
+      font-size: 0.78rem; color: var(--muted);
+      display: flex; align-items: center; gap: 0.5rem;
+      justify-content: center; flex-wrap: wrap;
+    }
+    /* OLD expertise styles — override */
+    .exp-layout { display: block !important; }
+    .exp-sticky { display: none !important; }
+    .test-cats  { display: none !important; }
+</style>
 </head>
 <body>
 
@@ -486,6 +887,12 @@
   </nav>
 
   <div class="hdr-right">
+    <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('fr')" id="btn-fr" title="Français">FR</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en" title="English">EN</button>
+    <button class="lang-btn" onclick="setLang('ar')" id="btn-ar" title="العربية">ع</button>
+  </div>
+  
     <a href="#consultations" class="btn btn-gold btn-sm hdr-rdv-desk">📅 Prendre RDV</a>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -512,7 +919,7 @@
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
-    <div class="hero-badge a1"><div class="badge-dot"></div>Cabinet — Berges du Lac, Tunis</div>
+    <a href="https://maps.google.com/?q=Bureau+N102+Résidence+Errihab+Rue+Malaren+Berges+du+Lac+Tunis" target="_blank" rel="noopener" class="hero-badge a1" aria-label="Voir le cabinet sur Google Maps"><div class="badge-dot"></div>Cabinet — Berges du Lac, Tunis</a>
     <h1 class="hero-name a2">Mr. Aymen<br><em>KHALSI</em></h1>
     <div class="hero-tags a3">
       <span class="htag">Psychothérapeute</span>
@@ -604,49 +1011,576 @@
 
 <!-- EXPERTISE -->
 <section id="expertise">
-  <div class="exp-layout container-wide">
-    <div class="exp-sticky">
-      <span class="tag">Outils d'évaluation</span>
-      <h2>Expertise <em>Clinique</em></h2>
-      <p class="lead">Catalogue d'outils psychométriques validés scientifiquement couvrant les dimensions cognitives, attentionnelles et de personnalité.</p>
-      <a href="#consultations" class="btn btn-gold">Réserver une évaluation</a>
+  <div class="container-wide">
+
+    <!-- Intro -->
+    <div class="exp-intro reveal">
+      <span class="tag" id="exp-tag">Outils d'évaluation</span>
+      <h2 id="exp-h2">Expertise <em>Clinique</em></h2>
+      <p class="lead" id="exp-lead">Cliquez sur un domaine pour découvrir les tests associés, classés par sous-type et par population.</p>
+      <a href="#consultations" class="btn btn-gold" id="exp-btn">Réserver une évaluation</a>
     </div>
 
-    <div class="test-cats">
-      <div class="test-cat reveal">
-        <div class="cat-head active" onclick="toggleCat(this)">
-          <span class="cat-nm">Tests Cognitifs</span><span class="cat-cnt">3 outils</span><span class="cat-arr">›</span>
-        </div>
-        <div class="cat-body open">
-          <div class="test-item"><span class="test-code">WISC-V</span><div><div class="test-nm">Échelle d'intelligence de Wechsler (enfants)</div><div class="test-det">6 ans → 16 ans 11 mois</div></div></div>
-          <div class="test-item"><span class="test-code">WAIS-IV</span><div><div class="test-nm">Échelle d'intelligence de Wechsler (adultes)</div><div class="test-det">16 ans → 90 ans 11 mois</div></div></div>
-          <div class="test-item"><span class="test-code">Rey</span><div><div class="test-nm">Figure de Rey-Osterrieth</div><div class="test-det">Mémoire visuo-spatiale & fonctions exécutives</div></div></div>
-        </div>
-      </div>
+    <!-- Domain pill strip -->
+    <div class="domain-strip reveal" id="domain-strip">
 
-      <div class="test-cat reveal">
-        <div class="cat-head" onclick="toggleCat(this)">
-          <span class="cat-nm">Attention & TDAH</span><span class="cat-cnt">3 outils</span><span class="cat-arr">›</span>
-        </div>
-        <div class="cat-body">
-          <div class="test-item"><span class="test-code">DIVA 2.0</span><div><div class="test-nm">Diagnostic du TDAH (adulte, version numérique)</div><div class="test-det">6 ans → 40 ans 11 mois</div></div></div>
-          <div class="test-item"><span class="test-code">D2-R</span><div><div class="test-nm">Test de concentration et d'attention sélective</div><div class="test-det">Enfants & Adultes</div></div></div>
-          <div class="test-item"><span class="test-code">TEA-CH</span><div><div class="test-nm">Test d'évaluation de l'attention chez l'enfant</div><div class="test-det">6 ans → 12 ans 11 mois</div></div></div>
-        </div>
-      </div>
+      <button class="dpill active" data-domain="intelligence"
+        data-fr="🧠 Intelligence &amp; QI" data-en="🧠 Intelligence &amp; IQ" data-ar="🧠 الذكاء ومعدل الذكاء"
+        onclick="openDomain('intelligence',this)">
+        <span class="dpill-icon">🧠</span>
+        <span class="dpill-lbl">Intelligence &amp; QI</span>
+      </button>
 
-      <div class="test-cat reveal">
-        <div class="cat-head" onclick="toggleCat(this)">
-          <span class="cat-nm">Personnalité & Schémas</span><span class="cat-cnt">4 outils</span><span class="cat-arr">›</span>
+      <button class="dpill" data-domain="memoire"
+        data-fr="💾 Mémoire" data-en="💾 Memory" data-ar="💾 الذاكرة"
+        onclick="openDomain('memoire',this)">
+        <span class="dpill-icon">💾</span>
+        <span class="dpill-lbl">Mémoire</span>
+      </button>
+
+      <button class="dpill" data-domain="attention"
+        data-fr="⚡ Attention" data-en="⚡ Attention" data-ar="⚡ الانتباه"
+        onclick="openDomain('attention',this)">
+        <span class="dpill-icon">⚡</span>
+        <span class="dpill-lbl">Attention</span>
+      </button>
+
+      <button class="dpill" data-domain="executive"
+        data-fr="⚙️ Fonctions exécutives" data-en="⚙️ Executive functions" data-ar="⚙️ الوظائف التنفيذية"
+        onclick="openDomain('executive',this)">
+        <span class="dpill-icon">⚙️</span>
+        <span class="dpill-lbl">Fonctions exécutives</span>
+      </button>
+
+      <button class="dpill" data-domain="tdah"
+        data-fr="🎯 TDAH" data-en="🎯 ADHD" data-ar="🎯 اضطراب فرط الحركة"
+        onclick="openDomain('tdah',this)">
+        <span class="dpill-icon">🎯</span>
+        <span class="dpill-lbl">TDAH</span>
+      </button>
+
+      <button class="dpill" data-domain="neuro"
+        data-fr="🧩 Neurodéveloppement" data-en="🧩 Neurodevelopment" data-ar="🧩 النمو العصبي"
+        onclick="openDomain('neuro',this)">
+        <span class="dpill-icon">🧩</span>
+        <span class="dpill-lbl">Neurodéveloppement</span>
+      </button>
+
+      <button class="dpill" data-domain="perso"
+        data-fr="🪞 Personnalité" data-en="🪞 Personality" data-ar="🪞 الشخصية"
+        onclick="openDomain('perso',this)">
+        <span class="dpill-icon">🪞</span>
+        <span class="dpill-lbl">Personnalité</span>
+      </button>
+
+      <button class="dpill" data-domain="schemas"
+        data-fr="🔗 Schémas cognitifs" data-en="🔗 Cognitive schemas" data-ar="🔗 المخططات المعرفية"
+        onclick="openDomain('schemas',this)">
+        <span class="dpill-icon">🔗</span>
+        <span class="dpill-lbl">Schémas cognitifs</span>
+      </button>
+
+    </div><!-- /domain-strip -->
+
+    <!-- ═══════════════════ ACCORDION PANELS ═══════════════════ -->
+
+    <!-- ① INTELLIGENCE & QI -->
+    <div class="acc-panel open" id="acc-intelligence">
+      <div class="acc-inner">
+        <div class="acc-hdr">
+          <span class="acc-hdr-icon">🧠</span>
+          <div class="acc-hdr-txt">
+            <h3 id="acc-intelligence-title"
+              data-fr="Intelligence &amp; Cognition Globale"
+              data-en="Intelligence &amp; Global Cognition"
+              data-ar="الذكاء والإدراك الكلي">Intelligence &amp; Cognition Globale</h3>
+            <p id="acc-intelligence-sub"
+              data-fr="QI global, raisonnement, traitement de l'information"
+              data-en="Global IQ, reasoning, information processing"
+              data-ar="معدل الذكاء الكلي، التفكير، معالجة المعلومات">QI global, raisonnement, traitement de l'information</p>
+          </div>
+          <span class="acc-dsm-ref">DSM-5 · F70–F79</span>
         </div>
-        <div class="cat-body">
-          <div class="test-item"><span class="test-code">NEO PI-R</span><div><div class="test-nm">Inventaire de personnalité — 5 facteurs</div><div class="test-det">Adultes · Certifié Roumanie</div></div></div>
-          <div class="test-item"><span class="test-code">YSQ</span><div><div class="test-nm">Schémas de Young (S1 / S3)</div><div class="test-det">Schémas précoces inadaptés</div></div></div>
-          <div class="test-item"><span class="test-code">MBTI</span><div><div class="test-nm">Myers-Briggs Type Indicator</div><div class="test-det">16 profils de personnalité</div></div></div>
-          <div class="test-item"><span class="test-code">16PF</span><div><div class="test-nm">16 Facteurs de personnalité — Cattell</div><div class="test-det">Adultes</div></div></div>
+        <div class="acc-sub">
+
+          <!-- Sous-type : Enfant -->
+          <div>
+            <div class="subcat-label" data-fr="👶 Enfant (6–16 ans)" data-en="👶 Child (6–16)" data-ar="👶 طفل (6–16 سنة)">👶 Enfant (6–16 ans)</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-child" data-lbl="child">Enfant</span>
+                <span class="tpill">WISC-V</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Échelle d'intelligence de Wechsler pour enfants — 5ᵉ éd.</div>
+                  <div class="tcard-det">
+                    <span class="dim">6–16 ans</span>
+                    QI global · Indice de compréhension verbale (ICV) · Raisonnement perceptif (IRP) · Mémoire de travail (IMT) · Vitesse de traitement (IVT) · Indice de raisonnement fluide (IRF)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sous-type : Adulte -->
+          <div>
+            <div class="subcat-label" data-fr="🧑 Adulte (16–90 ans)" data-en="🧑 Adult (16–90)" data-ar="🧑 بالغ (16–90 سنة)">🧑 Adulte (16–90 ans)</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-adult" data-lbl="adult">Adulte</span>
+                <span class="tpill">WAIS-IV</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Échelle d'intelligence de Wechsler pour adultes — 4ᵉ éd.</div>
+                  <div class="tcard-det">
+                    <span class="dim">16–90 ans</span>
+                    QI global · Compréhension verbale · Raisonnement perceptif · Mémoire de travail · Vitesse de traitement
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /acc-sub -->
+      </div>
+    </div>
+
+    <!-- ② MÉMOIRE -->
+    <div class="acc-panel" id="acc-memoire">
+      <div class="acc-inner">
+        <div class="acc-hdr">
+          <span class="acc-hdr-icon">💾</span>
+          <div class="acc-hdr-txt">
+            <h3 id="acc-memoire-title"
+              data-fr="Mémoire"
+              data-en="Memory"
+              data-ar="الذاكرة">Mémoire</h3>
+            <p id="acc-memoire-sub"
+              data-fr="Épisodique, de travail, visuo-spatiale, procédurale"
+              data-en="Episodic, working, visuo-spatial, procedural"
+              data-ar="الذاكرة الحلقية، العاملة، البصرية-المكانية، الإجرائية">Épisodique, de travail, visuo-spatiale, procédurale</p>
+          </div>
+          <span class="acc-dsm-ref">DSM-5 · F06.7</span>
+        </div>
+        <div class="acc-sub">
+
+          <div>
+            <div class="subcat-label" data-fr="Mémoire de travail" data-en="Working memory" data-ar="الذاكرة العاملة">Mémoire de travail</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-child" data-lbl="child">Enfant</span>
+                <span class="tpill">WISC-V</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Indice de Mémoire de Travail (IMT)</div>
+                  <div class="tcard-det"><span class="dim">6–16 ans</span>Empan de chiffres · Empan de séquences images · Rétention verbale &amp; visuo-spatiale</div>
+                </div>
+              </div>
+              <div class="tcard">
+                <span class="abadge ab-adult" data-lbl="adult">Adulte</span>
+                <span class="tpill">WAIS-IV</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Indice de Mémoire de Travail (IMT)</div>
+                  <div class="tcard-det"><span class="dim">16–90 ans</span>Empan de chiffres · Séquences lettres-chiffres · Arithmétique mentale</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subcat-label" data-fr="Mémoire visuo-spatiale &amp; épisodique" data-en="Visuo-spatial &amp; episodic memory" data-ar="الذاكرة البصرية-المكانية والحلقية">Mémoire visuo-spatiale &amp; épisodique</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-both" data-lbl="both">Tous âges</span>
+                <span class="tpill">Rey</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Figure de Rey-Osterrieth — Rappel immédiat &amp; différé</div>
+                  <div class="tcard-det"><span class="dim">Tous âges</span>Mémoire visuelle à court terme · Mémoire épisodique non verbale · Encodage et récupération</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
+
+    <!-- ③ ATTENTION -->
+    <div class="acc-panel" id="acc-attention">
+      <div class="acc-inner">
+        <div class="acc-hdr">
+          <span class="acc-hdr-icon">⚡</span>
+          <div class="acc-hdr-txt">
+            <h3 id="acc-attention-title"
+              data-fr="Attention &amp; Concentration"
+              data-en="Attention &amp; Concentration"
+              data-ar="الانتباه والتركيز">Attention &amp; Concentration</h3>
+            <p id="acc-attention-sub"
+              data-fr="Soutenue, sélective, divisée, vitesse de traitement"
+              data-en="Sustained, selective, divided, processing speed"
+              data-ar="الانتباه المستدام، الانتقائي، المنقسم، سرعة المعالجة">Soutenue, sélective, divisée, vitesse de traitement</p>
+          </div>
+          <span class="acc-dsm-ref">DSM-5 · F90 / F06</span>
+        </div>
+        <div class="acc-sub">
+
+          <div>
+            <div class="subcat-label" data-fr="Attention soutenue, sélective &amp; divisée (enfant)" data-en="Sustained, selective &amp; divided attention (child)" data-ar="الانتباه المستدام والانتقائي والمنقسم (طفل)">Attention soutenue, sélective &amp; divisée — Enfant</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-child" data-lbl="child">Enfant</span>
+                <span class="tpill">TEA-CH</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Test d'évaluation de l'attention chez l'enfant</div>
+                  <div class="tcard-det"><span class="dim">6–12 ans</span>9 sub-tests · Attention soutenue · Attention sélective · Attention divisée · Contrôle attentionnel</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subcat-label" data-fr="Concentration &amp; attention sélective (tous âges)" data-en="Concentration &amp; selective attention (all ages)" data-ar="التركيز والانتباه الانتقائي (كل الأعمار)">Concentration &amp; attention sélective — Tous âges</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-both" data-lbl="both">Tous âges</span>
+                <span class="tpill">D2-R</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Test de concentration et d'attention sélective</div>
+                  <div class="tcard-det"><span class="dim">Enfants &amp; Adultes</span>Vitesse de traitement · Précision · Taux d'erreurs d'omission &amp; de commission · Score de concentration (E%)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subcat-label" data-fr="Vitesse de traitement visuel" data-en="Visual processing speed" data-ar="سرعة المعالجة البصرية">Vitesse de traitement visuel</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-child" data-lbl="child">Enfant</span>
+                <span class="tpill">WISC-V · IVT</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Indice de Vitesse de Traitement</div>
+                  <div class="tcard-det"><span class="dim">6–16 ans</span>Code · Symboles · Attention visuelle soutenue à courte durée</div>
+                </div>
+              </div>
+              <div class="tcard">
+                <span class="abadge ab-adult" data-lbl="adult">Adulte</span>
+                <span class="tpill">WAIS-IV · IVT</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Indice de Vitesse de Traitement</div>
+                  <div class="tcard-det"><span class="dim">16–90 ans</span>Code · Repérage de symboles · Efficience cognitive</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ FONCTIONS EXÉCUTIVES -->
+    <div class="acc-panel" id="acc-executive">
+      <div class="acc-inner">
+        <div class="acc-hdr">
+          <span class="acc-hdr-icon">⚙️</span>
+          <div class="acc-hdr-txt">
+            <h3 id="acc-executive-title"
+              data-fr="Fonctions Exécutives"
+              data-en="Executive Functions"
+              data-ar="الوظائف التنفيذية">Fonctions Exécutives</h3>
+            <p id="acc-executive-sub"
+              data-fr="Planification, inhibition, flexibilité, raisonnement fluide"
+              data-en="Planning, inhibition, flexibility, fluid reasoning"
+              data-ar="التخطيط، الكف، المرونة، التفكير السيال">Planification, inhibition, flexibilité, raisonnement fluide</p>
+          </div>
+          <span class="acc-dsm-ref">DSM-5 · F06.7 / F07</span>
+        </div>
+        <div class="acc-sub">
+
+          <div>
+            <div class="subcat-label" data-fr="Planification &amp; organisation visuo-spatiale" data-en="Planning &amp; visuo-spatial organization" data-ar="التخطيط والتنظيم البصري-المكاني">Planification &amp; organisation visuo-spatiale</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-both" data-lbl="both">Tous âges</span>
+                <span class="tpill">Rey · Copie</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Figure de Rey-Osterrieth — Phase de copie</div>
+                  <div class="tcard-det"><span class="dim">Tous âges</span>Stratégie de construction · Planification · Organisation spatiale · Inhibition des erreurs</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subcat-label" data-fr="Raisonnement fluide &amp; abstraction" data-en="Fluid reasoning &amp; abstraction" data-ar="التفكير السيال والتجريد">Raisonnement fluide &amp; abstraction</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-child" data-lbl="child">Enfant</span>
+                <span class="tpill">WISC-V · IRP</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Indice de Raisonnement Perceptif — WISC-V</div>
+                  <div class="tcard-det"><span class="dim">6–16 ans</span>Cubes · Matrices · Balances · Raisonnement non verbal · Résolution de problèmes nouveaux</div>
+                </div>
+              </div>
+              <div class="tcard">
+                <span class="abadge ab-adult" data-lbl="adult">Adulte</span>
+                <span class="tpill">WAIS-IV · IRP</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Indice de Raisonnement Perceptif — WAIS-IV</div>
+                  <div class="tcard-det"><span class="dim">16–90 ans</span>Cubes · Matrices · Raisonnement visuel complexe · Flexibilité cognitive</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑤ TDAH -->
+    <div class="acc-panel" id="acc-tdah">
+      <div class="acc-inner">
+        <div class="acc-hdr">
+          <span class="acc-hdr-icon">🎯</span>
+          <div class="acc-hdr-txt">
+            <h3 id="acc-tdah-title"
+              data-fr="TDAH — Déficit de l'Attention / Hyperactivité"
+              data-en="ADHD — Attention Deficit / Hyperactivity Disorder"
+              data-ar="اضطراب فرط الحركة وتشتت الانتباه">TDAH — Déficit de l'Attention / Hyperactivité</h3>
+            <p id="acc-tdah-sub"
+              data-fr="Inattentif · Hyperactif-impulsif · Mixte — critères DSM-5"
+              data-en="Inattentive · Hyperactive-impulsive · Combined — DSM-5 criteria"
+              data-ar="غير منتبه · مفرط النشاط-اندفاعي · مختلط — معايير DSM-5">Inattentif · Hyperactif-impulsif · Mixte — critères DSM-5</p>
+          </div>
+          <span class="acc-dsm-ref">DSM-5 · F90.0–F90.2</span>
+        </div>
+        <div class="acc-sub">
+
+          <div>
+            <div class="subcat-label" data-fr="Entretien diagnostique structuré (adulte)" data-en="Structured diagnostic interview (adult)" data-ar="مقابلة تشخيصية منظمة (بالغ)">Entretien diagnostique structuré</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-adult" data-lbl="adult">Adulte</span>
+                <span class="tpill">DIVA 2.0</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Diagnostic Interview for ADHD in Adults — version numérique</div>
+                  <div class="tcard-det"><span class="dim">6–40 ans</span>18 symptômes DSM-5 · Évaluation rétrospective enfance + âge adulte · Retentissement fonctionnel · 5 domaines de vie</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subcat-label" data-fr="Mesures objectives d'attention — soutien au diagnostic" data-en="Objective attention measures — diagnostic support" data-ar="مقاييس موضوعية للانتباه — دعم التشخيص">Mesures objectives — soutien au diagnostic</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-child" data-lbl="child">Enfant</span>
+                <span class="tpill">TEA-CH</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Profil attentionnel différentiel</div>
+                  <div class="tcard-det"><span class="dim">6–12 ans</span>Discrimination TDAH / Dys- · Identification du sous-type · Planification de la remédiation</div>
+                </div>
+              </div>
+              <div class="tcard">
+                <span class="abadge ab-both" data-lbl="both">Tous âges</span>
+                <span class="tpill">D2-R</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Mesure objective de l'impulsivité &amp; inattention</div>
+                  <div class="tcard-det"><span class="dim">Enfants &amp; Adultes</span>Taux d'erreurs de commission (impulsivité) · Score E% · Complément objectif au diagnostic clinique</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑥ NEURODÉVELOPPEMENT -->
+    <div class="acc-panel" id="acc-neuro">
+      <div class="acc-inner">
+        <div class="acc-hdr">
+          <span class="acc-hdr-icon">🧩</span>
+          <div class="acc-hdr-txt">
+            <h3 id="acc-neuro-title"
+              data-fr="Troubles Neurodéveloppementaux"
+              data-en="Neurodevelopmental Disorders"
+              data-ar="اضطرابات النمو العصبي">Troubles Neurodéveloppementaux</h3>
+            <p id="acc-neuro-sub"
+              data-fr="DI · TSA · Troubles des apprentissages · Haut potentiel"
+              data-en="ID · ASD · Learning disorders · Giftedness"
+              data-ar="الإعاقة الذهنية · اضطراب التوحد · صعوبات التعلم · التفوق">DI · TSA · Troubles des apprentissages · Haut potentiel</p>
+          </div>
+          <span class="acc-dsm-ref">DSM-5 · F70–F89</span>
+        </div>
+        <div class="acc-sub">
+
+          <div>
+            <div class="subcat-label" data-fr="Handicap intellectuel &amp; haut potentiel" data-en="Intellectual disability &amp; giftedness" data-ar="الإعاقة الذهنية والتفوق العقلي">Handicap intellectuel &amp; haut potentiel</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-child" data-lbl="child">Enfant</span>
+                <span class="tpill">WISC-V</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Profil cognitif — dissociations inter-indices</div>
+                  <div class="tcard-det"><span class="dim">6–16 ans</span>Dépistage DI · Haut potentiel intellectuel (HPI) · Profil "2e" (doublement exceptionnel) · Troubles des apprentissages spécifiques</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subcat-label" data-fr="Organisation perceptivo-motrice &amp; dyspraxie" data-en="Perceptual-motor organization &amp; dyspraxia" data-ar="التنظيم الإدراكي-الحركي وعسر الحركة">Organisation perceptivo-motrice &amp; dyspraxie</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-both" data-lbl="both">Tous âges</span>
+                <span class="tpill">Rey</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Organisation perceptivo-motrice</div>
+                  <div class="tcard-det"><span class="dim">Tous âges</span>Dyspraxie visuo-spatiale · Maturité de l'organisation graphique · Coordination visuo-motrice</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subcat-label" data-fr="Profil attentionnel neurodéveloppemental" data-en="Neurodevelopmental attentional profile" data-ar="الملف الانتباهي لاضطرابات النمو العصبي">Profil attentionnel neurodéveloppemental</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-child" data-lbl="child">Enfant</span>
+                <span class="tpill">TEA-CH</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Discrimination TSA · TDAH · Dys-</div>
+                  <div class="tcard-det"><span class="dim">6–12 ans</span>Dyslexie · Dyscalculie · Dyspraxie · Profil TSA · Orientation thérapeutique &amp; scolaire</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑦ PERSONNALITÉ -->
+    <div class="acc-panel" id="acc-perso">
+      <div class="acc-inner">
+        <div class="acc-hdr">
+          <span class="acc-hdr-icon">🪞</span>
+          <div class="acc-hdr-txt">
+            <h3 id="acc-perso-title"
+              data-fr="Troubles de la Personnalité"
+              data-en="Personality Disorders"
+              data-ar="اضطرابات الشخصية">Troubles de la Personnalité</h3>
+            <p id="acc-perso-sub"
+              data-fr="Cluster A · B · C — traits, profils, facteurs dimensionnels"
+              data-en="Cluster A · B · C — traits, profiles, dimensional factors"
+              data-ar="المجموعة أ · ب · ج — السمات، الملامح، العوامل الأبعادية">Cluster A · B · C — traits, profils, facteurs dimensionnels</p>
+          </div>
+          <span class="acc-dsm-ref">DSM-5 · F60.x</span>
+        </div>
+        <div class="acc-sub">
+
+          <div>
+            <div class="subcat-label" data-fr="Modèle dimensionnel Big Five (5 facteurs)" data-en="Big Five dimensional model (5 factors)" data-ar="النموذج الأبعادي للعوامل الخمسة الكبرى">Modèle dimensionnel Big Five</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-adult" data-lbl="adult">Adulte</span>
+                <span class="tpill">NEO PI-R</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Inventaire NEO-PI-R — Big Five · Gold standard clinique</div>
+                  <div class="tcard-det"><span class="dim">Adultes · 240 items</span>Névrosisme (N) · Extraversion (E) · Ouverture (O) · Agréabilité (A) · Conscienciosité (C) · 30 facettes · Certifié Roumanie</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subcat-label" data-fr="Profil multidimensionnel global" data-en="Global multidimensional profile" data-ar="الملف متعدد الأبعاد الشامل">Profil multidimensionnel global</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-adult" data-lbl="adult">Adulte</span>
+                <span class="tpill">16PF</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">16 Facteurs de personnalité — Cattell</div>
+                  <div class="tcard-det"><span class="dim">Adultes</span>16 dimensions primaires · Profil global · Usage clinique &amp; bilan professionnel · Prédiction comportementale</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subcat-label" data-fr="Profil typologique &amp; orientation" data-en="Typological profile &amp; orientation" data-ar="الملف الصنفي والتوجه">Profil typologique &amp; orientation</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-adult" data-lbl="adult">Adulte</span>
+                <span class="tpill">MBTI</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Myers-Briggs Type Indicator</div>
+                  <div class="tcard-det"><span class="dim">Adultes</span>16 types · Orientation E/I · Perception S/N · Jugement T/F · Style de vie J/P · Soutien thérapeutique &amp; accompagnement</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑧ SCHÉMAS COGNITIFS -->
+    <div class="acc-panel" id="acc-schemas">
+      <div class="acc-inner">
+        <div class="acc-hdr">
+          <span class="acc-hdr-icon">🔗</span>
+          <div class="acc-hdr-txt">
+            <h3 id="acc-schemas-title"
+              data-fr="Schémas Cognitifs Précoces"
+              data-en="Early Maladaptive Schemas"
+              data-ar="المخططات المعرفية المبكرة">Schémas Cognitifs Précoces</h3>
+            <p id="acc-schemas-sub"
+              data-fr="Croyances dysfonctionnelles, TCC, thérapie des schémas de Young"
+              data-en="Dysfunctional beliefs, CBT, Young schema therapy"
+              data-ar="المعتقدات الخاطئة، العلاج المعرفي، علاج مخططات يونج">Croyances dysfonctionnelles · TCC · Thérapie des schémas de Young</p>
+          </div>
+          <span class="acc-dsm-ref">DSM-5 · F60 / F32 / F41</span>
+        </div>
+        <div class="acc-sub">
+
+          <div>
+            <div class="subcat-label" data-fr="Dépistage rapide (15 schémas)" data-en="Rapid screening (15 schemas)" data-ar="الفحص السريع (15 مخططًا)">Dépistage rapide — 15 schémas</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-adult" data-lbl="adult">Adulte</span>
+                <span class="tpill">YSQ-S1</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Young Schema Questionnaire — Forme courte S1</div>
+                  <div class="tcard-det"><span class="dim">75 items · Adultes</span>15 schémas précoces inadaptés · 5 domaines · Abandon · Méfiance · Carence affective · Imperfection · Dépendance…</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subcat-label" data-fr="Évaluation complète (18 schémas)" data-en="Full assessment (18 schemas)" data-ar="التقييم الشامل (18 مخططًا)">Évaluation complète — 18 schémas</div>
+            <div class="tcard-row">
+              <div class="tcard">
+                <span class="abadge ab-adult" data-lbl="adult">Adulte</span>
+                <span class="tpill">YSQ-S3</span>
+                <div class="tcard-body">
+                  <div class="tcard-nm">Young Schema Questionnaire — Forme courte S3</div>
+                  <div class="tcard-det"><span class="dim">90 items · Adultes</span>18 schémas · 5 domaines complets · Profil clinique approfondi · Certifié Roumanie · Indication thérapie des schémas</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="acc-legend reveal" id="acc-legend">
+      <span class="abadge ab-child">Enfant</span> 6–16 ans &nbsp;·&nbsp;
+      <span class="abadge ab-adult">Adulte</span> 16+ ans &nbsp;·&nbsp;
+      <span class="abadge ab-both">Tous âges</span> Tous groupes d'âge
+    </div>
+
   </div>
 </section>
 
@@ -655,7 +1589,7 @@
   <div class="container-wide">
     <span class="tag">Honoraires</span>
     <h2>Modalités de <em>Règlement</em></h2>
-    <p class="lead">Consultations confirmées dès réception du justificatif de paiement. TVA 7% — Facturation électronique nationale (TTN El Fatoora).</p>
+    <p class="lead">Consultations confirmées dès réception du justificatif de paiement. Facturation électronique nationale (TTN El Fatoora).</p>
     <div class="pay-grid">
 
       <div class="pay-card reveal">
@@ -688,20 +1622,6 @@
   </div>
 </section>
 
-<!-- PUBLICATIONS -->
-<section id="publications">
-  <div class="container-wide">
-    <span class="tag">Ressources</span>
-    <h2>Nos <em>Publications</em></h2>
-    <p class="lead">Articles et ressources cliniques pour sensibiliser à la santé mentale.</p>
-    <div class="pub-grid">
-      <div class="pub-card reveal"><span class="pub-num">01</span><h3 class="pub-txt">Le Bilan neuropsychologique chez l'enfant</h3></div>
-      <div class="pub-card reveal"><span class="pub-num">02</span><h3 class="pub-txt">Qu'est-ce que la santé mentale ?</h3></div>
-      <div class="pub-card reveal"><span class="pub-num">03</span><h3 class="pub-txt">La thérapie de couple : la communication empathique</h3></div>
-      <div class="pub-card reveal"><span class="pub-num">04</span><h3 class="pub-txt">Votre mari est sur la défensive ? Quelques conseils</h3></div>
-    </div>
-  </div>
-</section>
 
 <!-- CONTACT -->
 <section id="infos">
@@ -790,7 +1710,6 @@
           <div class="ccard-lbl">Téléphone & Disponibilité</div>
           <div class="ccard-val"><a href="tel:+21650500024" style="color:var(--gold); font-size:1.05rem; font-weight:600;">+216 50 500 024</a></div>
           <div class="ccard-val" style="font-size:0.85rem; color:var(--muted);">Consultations sur rendez-vous<br>Présentiel & visioconférence</div>
-          <div style="font-size:0.78rem; color:var(--muted);">TVA 7% · TTN El Fatoora</div>
         </div>
       </div>
     </div>
@@ -813,7 +1732,7 @@
     </div>
 
     <div class="footer-cols">
-      <div class="fcol">
+      <div class="fcol" id="fcol-nav">
         <h4>Navigation</h4>
         <ul>
           <li><a href="#accueil">Accueil</a></li>
@@ -823,7 +1742,7 @@
           <li><a href="#infos">Contact</a></li>
         </ul>
       </div>
-      <div class="fcol">
+      <div class="fcol" id="fcol-svc">
         <h4>Services</h4>
         <ul>
           <li><a href="#consultations">Psychothérapie individuelle</a></li>
@@ -833,13 +1752,12 @@
           <li><a href="#consultations">Certificat Roumanie</a></li>
         </ul>
       </div>
-      <div class="fcol">
+      <div class="fcol" id="fcol-legal">
         <h4>Légal</h4>
         <ul>
           <li><a href="#">Mentions légales</a></li>
           <li><a href="#">Confidentialité</a></li>
           <li><a href="#">Code de déontologie</a></li>
-          <li><a href="#">TVA 7% — TTN</a></li>
           <li><a href="#">CIN : 08109438</a></li>
         </ul>
       </div>
@@ -895,7 +1813,7 @@
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   const navLinks = document.querySelectorAll('nav.desk a');
-  const sections = ['accueil','consultations','expertise','paiement','publications','infos'];
+  const sections = ['accueil','consultations','expertise','paiement','infos'];
   window.addEventListener('scroll', () => {
     let cur = '';
     sections.forEach(id => { const el = document.getElementById(id); if (el && window.scrollY >= el.offsetTop - 90) cur = id; });
@@ -906,5 +1824,671 @@
   const footerEl = document.querySelector('footer');
   new IntersectionObserver(([e]) => { fab.style.opacity = e.isIntersecting ? '0' : '1'; fab.style.pointerEvents = e.isIntersecting ? 'none' : 'auto'; }).observe(footerEl);
 </script>
+
+<script>
+// ── TRANSLATIONS ──────────────────────────────────────────────────────────
+const T = {
+  fr: {
+    dir: 'ltr',
+    htmlLang: 'fr',
+    // Header / nav
+    nav_accueil: 'Accueil',
+    nav_consultations: 'Consultations',
+    nav_expertise: 'Expertise',
+    nav_honoraires: 'Honoraires',
+    nav_contact: 'Contact',
+    btn_rdv: '📅 Prendre RDV',
+    btn_rdv_full: '📅 Prendre Rendez-vous',
+    btn_patient: '🔐 Espace Patient',
+    // Drawer links
+    drawer_expertise: 'Expertise Clinique',
+    drawer_honoraires: 'Honoraires',
+    drawer_contact: 'Contact & Adresse',
+    // Logo
+    logo_sub: 'Cabinet de Psychologie',
+    // Hero
+    hero_badge: 'Cabinet — Berges du Lac, Tunis',
+    hero_tags: ['Psychothérapeute','Neuropsychologue','Thérapeute de Couple'],
+    hero_desc: "16 ans d'expérience institutionnelle et libérale. Une approche rigoureuse, fondée sur les données probantes et le respect du code de déontologie.",
+    stat_exp: 'Ans expérience',
+    stat_outils: 'Outils validés',
+    stat_spec: 'Spécialités',
+    btn_voir_expertise: "Voir l'expertise →",
+    // Profile
+    profile_role: 'Psychothérapeute · Neuropsychologue · Thérapeute de Couple',
+    profile_text: "Fort de 16 ans d'expérience en milieu institutionnel et libéral, Mr. Khalsi propose une prise en charge globale et scientifiquement rigoureuse. Son cabinet, situé aux Berges du Lac de Tunis, offre des consultations en présentiel et à distance pour les patients en Tunisie et à l'international.",
+    chips: ['🧠 Psychothérapie','🔬 Neuropsychologie','💑 Thérapie de Couple'],
+    // Consultations
+    tag_services: 'Services',
+    h2_consultations: 'Modalités de <em>Consultation</em>',
+    lead_consultations: 'Séances disponibles au cabinet ou à distance — pour particuliers et expatriés.',
+    card_cabinet_title: 'Au Cabinet',
+    card_cabinet_desc: 'Consultations en présentiel dans un cadre confidentiel et sécurisé, aux Berges du Lac, Tunis.',
+    card_cabinet_link1: 'Thérapie individuelle',
+    card_cabinet_link2: 'Thérapie de couple',
+    card_online_title: 'En Ligne',
+    card_online_desc: 'Séances de psychothérapie à distance via visioconférence sécurisée — idéal pour les expatriés.',
+    card_online_link1: 'Thérapie individuelle',
+    card_online_link2: 'Thérapie de couple',
+    card_neuro_title: 'Bilan Neuropsychologique',
+    card_neuro_desc: 'Évaluation cognitive standardisée pour enfants et adultes — WISC-V, WAIS-IV, TEA-CH, DIVA 2.0.',
+    card_neuro_link1: 'WISC-V · 6–16 ans',
+    card_neuro_link2: 'WAIS-IV · 16–90 ans',
+    card_neuro_link3: 'TEA-CH · 6–12 ans',
+    card_neuro_link4: 'Éval. TDAH numérique',
+    card_rom_title: 'Certificat — Médecine Roumanie',
+    card_rom_desc: 'Bilans de personnalité pour l\'inscription en faculté de médecine en Roumanie (NEO PI-R, YSQ).',
+    card_rom_link1: 'Test NEO PI-R',
+    card_rom_link2: 'Test YSQ-S1 / YSQ-S3',
+    // Expertise
+    tag_outils: 'Outils d\'évaluation',
+    h2_expertise: 'Expertise <em>Clinique</em>',
+    lead_expertise: 'Catalogue d\'outils psychométriques validés scientifiquement couvrant les dimensions cognitives, attentionnelles et de personnalité.',
+    btn_reserver: 'Réserver une évaluation',
+    cat_cognitif: 'Tests Cognitifs',
+    cat_cognitif_cnt: '3 outils',
+    cat_attention: 'Attention & TDAH',
+    cat_attention_cnt: '3 outils',
+    cat_perso: 'Personnalité & Schémas',
+    cat_perso_cnt: '4 outils',
+    // Paiement
+    tag_honoraires: 'Honoraires',
+    h2_paiement: 'Modalités de <em>Règlement</em>',
+    lead_paiement: 'Consultations confirmées dès réception du justificatif de paiement. Facturation électronique nationale (TTN El Fatoora).',
+    pay_bank_title: '🏦 Virement Bancaire',
+    pay_bank_note: '⚠️ Indiquer Nom + Date de séance en libellé. Envoyer le justificatif avant le RDV.',
+    pay_mobile_title: '📱 Paiement Mobile',
+    pay_mobile_note: '✅ Capture d\'écran obligatoire. Envoi par WhatsApp avant la séance.',
+    pay_cards_label: 'Cartes acceptées',
+    pay_cards_val: 'Visa · Mastercard · CIB Tunisie',
+    // Publications
+    tag_ressources: 'Ressources',
+    h2_publications: 'Nos <em>Publications</em>',
+    lead_publications: 'Articles et ressources cliniques pour sensibiliser à la santé mentale.',
+    pub1: 'Le Bilan neuropsychologique chez l\'enfant',
+    pub2: 'Qu\'est-ce que la santé mentale ?',
+    pub3: 'La thérapie de couple : la communication empathique',
+    pub4: 'Votre mari est sur la défensive ? Quelques conseils',
+    // Contact
+    tag_trouver: 'Nous trouver',
+    h2_contact: 'Contact & <em>Accès</em>',
+    map_open: 'Ouvrir dans Google Maps →',
+    itin_title: '🗺️ Calculer mon itinéraire',
+    itin_placeholder: 'Votre point de départ…',
+    itin_dest: '🏥 Bureau N102, Résidence Errihab, Berges du Lac 1, Tunis',
+    itin_car: '🚗 Voiture', itin_bus: '🚌 Transport', itin_walk: '🚶 À pied',
+    btn_itin: 'Lancer l\'itinéraire →',
+    ccard_addr_lbl: 'Adresse',
+    ccard_addr_val: 'Bureau N102, BLOC "B"<br>Résidence ERRIHAB, Rue MALAREN<br>Berges du Lac 1 — Tunis 1053',
+    ccard_wa_lbl: 'WhatsApp',
+    ccard_wa_btn: 'Envoyer un message',
+    ccard_rdv_lbl: 'Réservation en ligne',
+    ccard_rdv_desc: 'Choisissez votre type de consultation et réservez directement votre créneau.',
+    rdv1: '🏢 Cabinet · Individuelle →', rdv2: '🏢 Cabinet · Couple →',
+    rdv3: '💻 En ligne · Individuelle →', rdv4: '💻 En ligne · Couple →',
+    ccard_tel_lbl: 'Téléphone & Disponibilité',
+    ccard_tel_sub: 'Consultations sur rendez-vous<br>Présentiel & visioconférence',
+    ccard_tva: '',
+    // Footer
+    footer_desc: 'Cabinet de Psychothérapie, Neuropsychologie et Thérapie de Couple. 16 ans d\'expérience au service de votre équilibre psychologique. Consultations en Tunisie et à l\'international.',
+    footer_nav: 'Navigation',
+    footer_services: 'Services',
+    footer_legal: 'Légal',
+    footer_nav_links: ['Accueil','Consultations','Expertise Clinique','Honoraires','Contact'],
+    footer_svc_links: ['Psychothérapie individuelle','Thérapie de couple','Bilan neuropsychologique','Consultation en ligne','Certificat Roumanie'],
+    footer_leg_links: ['Mentions légales','Confidentialité','Code de déontologie','CIN : 08109438'],
+    footer_copy: '© 2025 Cabinet Aymen KHALSI — Tous droits réservés',
+    footer_addr: 'Bureau N102, Berges du Lac 1, Tunis 1053 · +216 50 500 024',
+    fab: '📅 Prendre RDV',
+    // Map
+    map_name: 'Cabinet Aymen KHALSI',
+    map_addr: 'Bureau N102, Résidence Errihab<br>Rue Malaren, Berges du Lac 1 — Tunis 1053',
+    map_btn: 'Ouvrir dans Google Maps →',
+    logo_sub_footer: 'Cabinet de Psychologie',
+  },
+  en: {
+    dir: 'ltr',
+    htmlLang: 'en',
+    nav_accueil: 'Home',
+    nav_consultations: 'Consultations',
+    nav_expertise: 'Expertise',
+    nav_honoraires: 'Fees',
+    nav_contact: 'Contact',
+    btn_rdv: '📅 Book Appointment',
+    btn_rdv_full: '📅 Book an Appointment',
+    btn_patient: '🔐 Patient Portal',
+    drawer_expertise: 'Clinical Expertise',
+    drawer_honoraires: 'Fees',
+    drawer_contact: 'Contact & Location',
+    logo_sub: 'Psychology Practice',
+    hero_badge: 'Practice — Berges du Lac, Tunis',
+    hero_tags: ['Psychotherapist','Neuropsychologist','Couples Therapist'],
+    hero_desc: '16 years of institutional and private practice. A rigorous, evidence-based approach grounded in professional ethics.',
+    stat_exp: 'Years experience',
+    stat_outils: 'Validated tools',
+    stat_spec: 'Specialties',
+    btn_voir_expertise: 'View expertise →',
+    profile_role: 'Psychotherapist · Neuropsychologist · Couples Therapist',
+    profile_text: 'With 16 years of experience in institutional and private settings, Mr. Khalsi offers comprehensive and scientifically rigorous care. His practice, located at Berges du Lac in Tunis, provides in-person and remote consultations for patients in Tunisia and internationally.',
+    chips: ['🧠 Psychotherapy','🔬 Neuropsychology','💑 Couples Therapy'],
+    tag_services: 'Services',
+    h2_consultations: 'Consultation <em>Formats</em>',
+    lead_consultations: 'Sessions available in-person or remotely — for individuals and expatriates.',
+    card_cabinet_title: 'In-Person',
+    card_cabinet_desc: 'Face-to-face consultations in a confidential and secure setting at Berges du Lac, Tunis.',
+    card_cabinet_link1: 'Individual therapy',
+    card_cabinet_link2: 'Couples therapy',
+    card_online_title: 'Online',
+    card_online_desc: 'Remote psychotherapy sessions via secure video conferencing — ideal for expatriates.',
+    card_online_link1: 'Individual therapy',
+    card_online_link2: 'Couples therapy',
+    card_neuro_title: 'Neuropsychological Assessment',
+    card_neuro_desc: 'Standardised cognitive evaluation for children and adults — WISC-V, WAIS-IV, TEA-CH, DIVA 2.0.',
+    card_neuro_link1: 'WISC-V · Ages 6–16',
+    card_neuro_link2: 'WAIS-IV · Ages 16–90',
+    card_neuro_link3: 'TEA-CH · Ages 6–12',
+    card_neuro_link4: 'Digital ADHD Assessment',
+    card_rom_title: 'Certificate — Romanian Medicine',
+    card_rom_desc: 'Personality assessments for admission to Romanian medical schools (NEO PI-R, YSQ).',
+    card_rom_link1: 'NEO PI-R Test',
+    card_rom_link2: 'YSQ-S1 / YSQ-S3 Test',
+    tag_outils: 'Assessment tools',
+    h2_expertise: 'Clinical <em>Expertise</em>',
+    lead_expertise: 'A catalogue of scientifically validated psychometric tools covering cognitive, attentional, and personality dimensions.',
+    btn_reserver: 'Book an assessment',
+    cat_cognitif: 'Cognitive Tests',
+    cat_cognitif_cnt: '3 tools',
+    cat_attention: 'Attention & ADHD',
+    cat_attention_cnt: '3 tools',
+    cat_perso: 'Personality & Schemas',
+    cat_perso_cnt: '4 tools',
+    tag_honoraires: 'Fees',
+    h2_paiement: '<em>Payment</em> Methods',
+    lead_paiement: 'Appointments confirmed upon receipt of payment confirmation. National electronic invoicing (TTN El Fatoora).',
+    pay_bank_title: '🏦 Bank Transfer',
+    pay_bank_note: '⚠️ Include Name + Session date in the transfer reference. Send proof before the appointment.',
+    pay_mobile_title: '📱 Mobile Payment',
+    pay_mobile_note: '✅ Screenshot required. Send via WhatsApp before the session.',
+    pay_cards_label: 'Cards accepted',
+    pay_cards_val: 'Visa · Mastercard · CIB Tunisia',
+    tag_ressources: 'Resources',
+    h2_publications: 'Our <em>Publications</em>',
+    lead_publications: 'Clinical articles and resources to raise awareness about mental health.',
+    pub1: 'Neuropsychological assessment in children',
+    pub2: 'What is mental health?',
+    pub3: 'Couples therapy: empathic communication',
+    pub4: 'Is your husband defensive? Some advice',
+    tag_trouver: 'Find us',
+    h2_contact: 'Contact & <em>Location</em>',
+    map_open: 'Open in Google Maps →',
+    itin_title: '🗺️ Get directions',
+    itin_placeholder: 'Your starting point…',
+    itin_dest: '🏥 Office N102, Résidence Errihab, Berges du Lac 1, Tunis',
+    itin_car: '🚗 Car', itin_bus: '🚌 Transit', itin_walk: '🚶 Walking',
+    btn_itin: 'Get directions →',
+    ccard_addr_lbl: 'Address',
+    ccard_addr_val: 'Office N102, BLOCK "B"<br>Résidence ERRIHAB, Rue MALAREN<br>Berges du Lac 1 — Tunis 1053',
+    ccard_wa_lbl: 'WhatsApp',
+    ccard_wa_btn: 'Send a message',
+    ccard_rdv_lbl: 'Online booking',
+    ccard_rdv_desc: 'Choose your type of consultation and book your slot directly.',
+    rdv1: '🏢 In-person · Individual →', rdv2: '🏢 In-person · Couple →',
+    rdv3: '💻 Online · Individual →', rdv4: '💻 Online · Couple →',
+    ccard_tel_lbl: 'Phone & Availability',
+    ccard_tel_sub: 'Appointments required<br>In-person & video conferencing',
+    ccard_tva: '',
+    footer_desc: 'Psychotherapy, Neuropsychology and Couples Therapy Practice. 16 years of experience serving your psychological wellbeing. Consultations in Tunisia and internationally.',
+    footer_nav: 'Navigation',
+    footer_services: 'Services',
+    footer_legal: 'Legal',
+    footer_nav_links: ['Home','Consultations','Clinical Expertise','Fees','Contact'],
+    footer_svc_links: ['Individual psychotherapy','Couples therapy','Neuropsychological assessment','Online consultation','Romanian Certificate'],
+    footer_leg_links: ['Legal notice','Privacy policy','Code of ethics','ID: 08109438'],
+    footer_copy: '© 2025 Cabinet Aymen KHALSI — All rights reserved',
+    footer_addr: 'Office N102, Berges du Lac 1, Tunis 1053 · +216 50 500 024',
+    fab: '📅 Book Appointment',
+    map_name: 'Cabinet Aymen KHALSI',
+    map_addr: 'Office N102, Résidence Errihab<br>Rue Malaren, Berges du Lac 1 — Tunis 1053',
+    map_btn: 'Open in Google Maps →',
+    logo_sub_footer: 'Psychology Practice',
+  },
+  ar: {
+    dir: 'rtl',
+    htmlLang: 'ar',
+    nav_accueil: 'الرئيسية',
+    nav_consultations: 'الاستشارات',
+    nav_expertise: 'الخبرة',
+    nav_honoraires: 'الأتعاب',
+    nav_contact: 'اتصل بنا',
+    btn_rdv: '📅 حجز موعد',
+    btn_rdv_full: '📅 حجز موعد',
+    btn_patient: '🔐 بوابة المريض',
+    drawer_expertise: 'الخبرة السريرية',
+    drawer_honoraires: 'الأتعاب',
+    drawer_contact: 'التواصل والموقع',
+    logo_sub: 'عيادة علم النفس',
+    hero_badge: 'العيادة — ضفاف البحيرة، تونس',
+    hero_tags: ['معالج نفسي','اختصاصي علم الأعصاب النفسي','معالج للأزواج'],
+    hero_desc: '16 عامًا من الخبرة المؤسسية والخاصة. نهج صارم قائم على الأدلة العلمية واحترام مبادئ أخلاقيات المهنة.',
+    stat_exp: 'سنة خبرة',
+    stat_outils: 'أداة معتمدة',
+    stat_spec: 'تخصصات',
+    btn_voir_expertise: 'اكتشف الخبرة ←',
+    profile_role: 'معالج نفسي · اختصاصي علم الأعصاب النفسي · معالج للأزواج',
+    profile_text: 'بفضل 16 عامًا من الخبرة في القطاعين المؤسسي والخاص، يقدم السيد خالسي رعاية شاملة ومتينة علميًا. عيادته الكائنة في ضفاف البحيرة بتونس تقدم استشارات حضورية وعن بُعد للمرضى في تونس والخارج.',
+    chips: ['🧠 العلاج النفسي','🔬 علم الأعصاب النفسي','💑 علاج الأزواج'],
+    tag_services: 'الخدمات',
+    h2_consultations: 'طرق <em>الاستشارة</em>',
+    lead_consultations: 'جلسات متاحة في العيادة أو عن بُعد — للأفراد والمغتربين.',
+    card_cabinet_title: 'حضوريًا',
+    card_cabinet_desc: 'استشارات وجهًا لوجه في بيئة سرية وآمنة، في ضفاف البحيرة، تونس.',
+    card_cabinet_link1: 'علاج فردي',
+    card_cabinet_link2: 'علاج الأزواج',
+    card_online_title: 'عبر الإنترنت',
+    card_online_desc: 'جلسات علاج نفسي عن بُعد عبر مكالمة مرئية آمنة — مثالي للمغتربين.',
+    card_online_link1: 'علاج فردي',
+    card_online_link2: 'علاج الأزواج',
+    card_neuro_title: 'التقييم العصبي النفسي',
+    card_neuro_desc: 'تقييم معرفي موحد للأطفال والبالغين — WISC-V, WAIS-IV, TEA-CH, DIVA 2.0.',
+    card_neuro_link1: 'WISC-V · 6–16 سنة',
+    card_neuro_link2: 'WAIS-IV · 16–90 سنة',
+    card_neuro_link3: 'TEA-CH · 6–12 سنة',
+    card_neuro_link4: 'تقييم اضطراب التركيز الرقمي',
+    card_rom_title: 'شهادة — طب رومانيا',
+    card_rom_desc: 'تقييمات الشخصية للقبول في كليات الطب الرومانية (NEO PI-R, YSQ).',
+    card_rom_link1: 'اختبار NEO PI-R',
+    card_rom_link2: 'اختبار YSQ-S1 / YSQ-S3',
+    tag_outils: 'أدوات التقييم',
+    h2_expertise: 'الخبرة <em>السريرية</em>',
+    lead_expertise: 'كتالوج من الأدوات النفسية القياسية المعتمدة علميًا يغطي الأبعاد المعرفية والانتباهية والشخصية.',
+    btn_reserver: 'احجز تقييمًا',
+    cat_cognitif: 'الاختبارات المعرفية',
+    cat_cognitif_cnt: '3 أدوات',
+    cat_attention: 'الانتباه واضطراب فرط الحركة',
+    cat_attention_cnt: '3 أدوات',
+    cat_perso: 'الشخصية والمخططات',
+    cat_perso_cnt: '4 أدوات',
+    tag_honoraires: 'الأتعاب',
+    h2_paiement: 'طرق <em>الدفع</em>',
+    lead_paiement: 'يتم تأكيد المواعيد عند استلام إثبات الدفع. الفوترة الإلكترونية الوطنية (TTN El Fatoora).',
+    pay_bank_title: '🏦 تحويل بنكي',
+    pay_bank_note: '⚠️ أذكر الاسم + تاريخ الجلسة في خانة البيان. أرسل الإيصال قبل الموعد.',
+    pay_mobile_title: '📱 الدفع الإلكتروني',
+    pay_mobile_note: '✅ لقطة الشاشة إلزامية. أرسلها عبر واتساب قبل الجلسة.',
+    pay_cards_label: 'البطاقات المقبولة',
+    pay_cards_val: 'Visa · Mastercard · CIB تونس',
+    tag_ressources: 'الموارد',
+    h2_publications: 'منشوراتنا <em>العلمية</em>',
+    lead_publications: 'مقالات وموارد سريرية للتوعية بالصحة النفسية.',
+    pub1: 'التقييم العصبي النفسي عند الأطفال',
+    pub2: 'ما هي الصحة النفسية؟',
+    pub3: 'علاج الأزواج: التواصل التعاطفي',
+    pub4: 'هل زوجك في موقف دفاعي؟ بعض النصائح',
+    tag_trouver: 'أين نجدنا',
+    h2_contact: 'التواصل <em>والموقع</em>',
+    map_open: 'فتح في خرائط Google ←',
+    itin_title: '🗺️ احسب مساري',
+    itin_placeholder: 'نقطة انطلاقك…',
+    itin_dest: '🏥 مكتب N102، إقامة الرحاب، ضفاف البحيرة 1، تونس',
+    itin_car: '🚗 بالسيارة', itin_bus: '🚌 بالمواصلات', itin_walk: '🚶 سيرًا',
+    btn_itin: 'ابدأ المسار ←',
+    ccard_addr_lbl: 'العنوان',
+    ccard_addr_val: 'مكتب N102، بلوك "B"<br>إقامة الرحاب، شارع ملارن<br>ضفاف البحيرة 1 — تونس 1053',
+    ccard_wa_lbl: 'واتساب',
+    ccard_wa_btn: 'إرسال رسالة',
+    ccard_rdv_lbl: 'الحجز الإلكتروني',
+    ccard_rdv_desc: 'اختر نوع استشارتك واحجز وقتك مباشرة.',
+    rdv1: '🏢 حضوري · فردي ←', rdv2: '🏢 حضوري · أزواج ←',
+    rdv3: '💻 عبر الإنترنت · فردي ←', rdv4: '💻 عبر الإنترنت · أزواج ←',
+    ccard_tel_lbl: 'الهاتف والتوفر',
+    ccard_tel_sub: 'الاستشارات بموعد مسبق<br>حضوريًا وعبر مكالمة مرئية',
+    ccard_tva: '',
+    footer_desc: 'عيادة للعلاج النفسي وعلم الأعصاب النفسي وعلاج الأزواج. 16 عامًا من الخبرة في خدمة توازنك النفسي. استشارات في تونس والخارج.',
+    footer_nav: 'التنقل',
+    footer_services: 'الخدمات',
+    footer_legal: 'القانوني',
+    footer_nav_links: ['الرئيسية','الاستشارات','الخبرة السريرية','الأتعاب','التواصل'],
+    footer_svc_links: ['العلاج النفسي الفردي','علاج الأزواج','التقييم العصبي النفسي','الاستشارة عبر الإنترنت','شهادة رومانيا'],
+    footer_leg_links: ['إشعار قانوني','سياسة الخصوصية','مدونة الأخلاقيات','رقم الهوية: 08109438'],
+    footer_copy: '© 2025 عيادة أيمن خالسي — جميع الحقوق محفوظة',
+    footer_addr: 'مكتب N102، ضفاف البحيرة 1، تونس 1053 · +216 50 500 024',
+    fab: '📅 حجز موعد',
+    map_name: 'عيادة أيمن خالسي',
+    map_addr: 'مكتب N102، إقامة الرحاب<br>شارع ملارن، ضفاف البحيرة 1 — تونس 1053',
+    map_btn: 'فتح في خرائط Google ←',
+    logo_sub_footer: 'عيادة علم النفس',
+  }
+};
+
+function setLang(lang) {
+  const t = T[lang];
+  document.documentElement.lang = t.htmlLang;
+  document.documentElement.dir = t.dir;
+  // Buttons
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + lang).classList.add('active');
+
+  // Nav
+  const navLinks = document.querySelectorAll('nav.desk a');
+  const navKeys = ['nav_accueil','nav_consultations','nav_expertise','nav_honoraires','nav_contact'];
+  navLinks.forEach((a, i) => { if(navKeys[i]) a.textContent = t[navKeys[i]]; });
+
+  // Header RDV button
+  const hdrRdv = document.querySelector('.hdr-rdv-desk');
+  if(hdrRdv) hdrRdv.textContent = t.btn_rdv;
+
+  // Drawer
+  const drawerLinks = document.querySelectorAll('.drawer-link');
+  const drawerTexts = [t.nav_accueil, t.nav_consultations, t.drawer_expertise, t.drawer_honoraires, t.drawer_contact];
+  drawerLinks.forEach((a, i) => { if(drawerTexts[i]) a.textContent = drawerTexts[i]; });
+  const drawerCtas = document.querySelectorAll('.drawer-ctas .btn');
+  if(drawerCtas[0]) drawerCtas[0].textContent = t.btn_rdv_full;
+  if(drawerCtas[1]) drawerCtas[1].textContent = t.btn_patient;
+
+  // Logo sub
+  document.querySelectorAll('.logo-sub').forEach(el => el.textContent = t.logo_sub);
+
+  // Hero
+  const heroBadge = document.querySelector('.hero-badge');
+  if(heroBadge) { heroBadge.innerHTML = '<div class="badge-dot"></div>' + t.hero_badge; heroBadge.setAttribute('aria-label', t.hero_badge); }
+  const heroTags = document.querySelectorAll('.htag');
+  t.hero_tags.forEach((txt, i) => { if(heroTags[i]) heroTags[i].textContent = txt; });
+  const heroDesc = document.querySelector('.hero-desc');
+  if(heroDesc) heroDesc.textContent = t.hero_desc;
+  const heroActions = document.querySelectorAll('.hero-actions .btn');
+  if(heroActions[0]) heroActions[0].textContent = t.btn_rdv_full;
+  if(heroActions[1]) heroActions[1].textContent = t.btn_voir_expertise;
+  const statLbls = document.querySelectorAll('.stat-lbl');
+  const statKeys = ['stat_exp','stat_outils','stat_spec'];
+  statLbls.forEach((el, i) => { if(statKeys[i]) el.textContent = t[statKeys[i]]; });
+
+  // Profile
+  const pRole = document.querySelector('.profile-role');
+  if(pRole) pRole.textContent = t.profile_role;
+  const pText = document.querySelector('.profile-text');
+  if(pText) pText.textContent = t.profile_text;
+  const chips = document.querySelectorAll('.spec-chip');
+  t.chips.forEach((txt, i) => { if(chips[i]) chips[i].textContent = txt; });
+
+  // Consultations section
+  const secCons = document.getElementById('consultations');
+  if(secCons) {
+    const tag = secCons.querySelector('.tag'); if(tag) tag.textContent = t.tag_services;
+    const h2 = secCons.querySelector('h2'); if(h2) h2.innerHTML = t.h2_consultations;
+    const lead = secCons.querySelector('.lead'); if(lead) lead.textContent = t.lead_consultations;
+    // Cards
+    const cards = secCons.querySelectorAll('.consult-card');
+    const cardData = [
+      {title: t.card_cabinet_title, desc: t.card_cabinet_desc, links: [t.card_cabinet_link1, t.card_cabinet_link2]},
+      {title: t.card_online_title, desc: t.card_online_desc, links: [t.card_online_link1, t.card_online_link2]},
+      {title: t.card_neuro_title, desc: t.card_neuro_desc, links: [t.card_neuro_link1, t.card_neuro_link2, t.card_neuro_link3, t.card_neuro_link4]},
+      {title: t.card_rom_title, desc: t.card_rom_desc, links: [t.card_rom_link1, t.card_rom_link2]},
+    ];
+    cards.forEach((card, ci) => {
+      const d = cardData[ci]; if(!d) return;
+      const titleEl = card.querySelector('.card-title'); if(titleEl) titleEl.textContent = d.title;
+      const descEl = card.querySelector('.card-desc'); if(descEl) descEl.textContent = d.desc;
+      const cardLinks = card.querySelectorAll('.card-link');
+      d.links.forEach((txt, li) => {
+        if(cardLinks[li]) {
+          const arrow = cardLinks[li].querySelector('.link-arrow');
+          const arrowHtml = arrow ? arrow.outerHTML : '';
+          cardLinks[li].innerHTML = txt + ' ' + arrowHtml;
+        }
+      });
+    });
+  }
+
+  // Expertise section
+  const secExp = document.getElementById('expertise');
+  if(secExp) {
+    const tag = secExp.querySelector('.tag'); if(tag) tag.textContent = t.tag_outils;
+    const h2 = secExp.querySelector('h2'); if(h2) h2.innerHTML = t.h2_expertise;
+    const lead = secExp.querySelector('.lead'); if(lead) lead.textContent = t.lead_expertise;
+    const btn = secExp.querySelector('.btn-gold'); if(btn) btn.textContent = t.btn_reserver;
+    const catNms = secExp.querySelectorAll('.cat-nm');
+    const catCnts = secExp.querySelectorAll('.cat-cnt');
+    const catData = [
+      {nm: t.cat_cognitif, cnt: t.cat_cognitif_cnt},
+      {nm: t.cat_attention, cnt: t.cat_attention_cnt},
+      {nm: t.cat_perso, cnt: t.cat_perso_cnt},
+    ];
+    catData.forEach((d, i) => {
+      if(catNms[i]) catNms[i].textContent = d.nm;
+      if(catCnts[i]) catCnts[i].textContent = d.cnt;
+    });
+  }
+
+  // Paiement section
+  const secPay = document.getElementById('paiement');
+  if(secPay) {
+    const tag = secPay.querySelector('.tag'); if(tag) tag.textContent = t.tag_honoraires;
+    const h2 = secPay.querySelector('h2'); if(h2) h2.innerHTML = t.h2_paiement;
+    const lead = secPay.querySelector('.lead'); if(lead) lead.textContent = t.lead_paiement;
+    const payCards = secPay.querySelectorAll('.pay-card');
+    if(payCards[0]) {
+      const h3 = payCards[0].querySelector('h3'); if(h3) h3.textContent = t.pay_bank_title;
+      const note = payCards[0].querySelector('.pay-note'); if(note) note.textContent = t.pay_bank_note;
+    }
+    if(payCards[1]) {
+      const h3 = payCards[1].querySelector('h3'); if(h3) h3.textContent = t.pay_mobile_title;
+      const note = payCards[1].querySelector('.pay-note'); if(note) note.textContent = t.pay_mobile_note;
+      const cardLbl = payCards[1].querySelector('p[style*="0.82rem"]'); if(cardLbl) cardLbl.textContent = t.pay_cards_label;
+      const cardVal = payCards[1].querySelector('p[style*="0.88rem"]'); if(cardVal) cardVal.textContent = t.pay_cards_val;
+    }
+  }
+
+  // Publications
+  const secPub = document.getElementById('publications');
+  if(secPub) {
+    const tag = secPub.querySelector('.tag'); if(tag) tag.textContent = t.tag_ressources;
+    const h2 = secPub.querySelector('h2'); if(h2) h2.innerHTML = t.h2_publications;
+    const lead = secPub.querySelector('.lead'); if(lead) lead.textContent = t.lead_publications;
+    const pubs = secPub.querySelectorAll('.pub-txt');
+    const pubKeys = ['pub1','pub2','pub3','pub4'];
+    pubs.forEach((el, i) => { if(pubKeys[i]) el.textContent = t[pubKeys[i]]; });
+  }
+
+  // Contact
+  const secInfo = document.getElementById('infos');
+  if(secInfo) {
+    const tag = secInfo.querySelector('.tag'); if(tag) tag.textContent = t.tag_trouver;
+    const h2 = secInfo.querySelector('h2'); if(h2) h2.innerHTML = t.h2_contact;
+    // Map
+    const mapName = secInfo.querySelector('.map-info-name'); if(mapName) mapName.textContent = t.map_name;
+    const mapAddr = secInfo.querySelector('.map-info-addr'); if(mapAddr) mapAddr.innerHTML = t.map_addr;
+    const mapBtn = secInfo.querySelector('.map-open-btn');
+    if(mapBtn) { const svg = mapBtn.querySelector('svg'); mapBtn.textContent = t.map_btn; if(svg) mapBtn.prepend(svg); }
+    // itin
+    const itinTitle = secInfo.querySelector('.itin-title'); if(itinTitle) itinTitle.textContent = t.itin_title;
+    const itinIn = secInfo.querySelector('#originInput'); if(itinIn) itinIn.placeholder = t.itin_placeholder;
+    const itinDest = secInfo.querySelector('.itin-dest'); if(itinDest) itinDest.textContent = t.itin_dest;
+    const modes = secInfo.querySelectorAll('.itin-mode');
+    if(modes[0]) modes[0].textContent = t.itin_car;
+    if(modes[1]) modes[1].textContent = t.itin_bus;
+    if(modes[2]) modes[2].textContent = t.itin_walk;
+    const itinBtn = secInfo.querySelector('button.btn-gold'); if(itinBtn) itinBtn.textContent = t.btn_itin;
+    // ccards
+    const ccards = secInfo.querySelectorAll('.ccard');
+    if(ccards[0]) {
+      const lbl = ccards[0].querySelector('.ccard-lbl'); if(lbl) lbl.textContent = t.ccard_addr_lbl;
+      const val = ccards[0].querySelector('.ccard-val'); if(val) val.innerHTML = t.ccard_addr_val;
+    }
+    if(ccards[1]) {
+      const lbl = ccards[1].querySelector('.ccard-lbl'); if(lbl) lbl.textContent = t.ccard_wa_lbl;
+      const btn = ccards[1].querySelector('.btn-wa');
+      if(btn) { const svg = btn.querySelector('svg'); btn.textContent = t.ccard_wa_btn; if(svg) btn.prepend(svg); }
+    }
+    if(ccards[2]) {
+      const lbl = ccards[2].querySelector('.ccard-lbl'); if(lbl) lbl.textContent = t.ccard_rdv_lbl;
+      const desc = ccards[2].querySelector('.ccard-val'); if(desc) desc.textContent = t.ccard_rdv_desc;
+      const rdvLinks = ccards[2].querySelectorAll('.rdv-link');
+      const rdvKeys = ['rdv1','rdv2','rdv3','rdv4'];
+      rdvLinks.forEach((a, i) => { if(rdvKeys[i]) a.textContent = t[rdvKeys[i]]; });
+    }
+    if(ccards[3]) {
+      const lbl = ccards[3].querySelector('.ccard-lbl'); if(lbl) lbl.textContent = t.ccard_tel_lbl;
+      const vals = ccards[3].querySelectorAll('.ccard-val');
+      if(vals[1]) vals[1].innerHTML = t.ccard_tel_sub;
+      const tvaEl = ccards[3].querySelector('div[style]'); if(tvaEl) { if(t.ccard_tva) { tvaEl.textContent = t.ccard_tva; tvaEl.style.display=''; } else { tvaEl.style.display='none'; } }
+    }
+  }
+
+  // Footer
+  const footer = document.querySelector('footer');
+  if(footer) {
+    const fdesc = footer.querySelector('.footer-desc'); if(fdesc) fdesc.textContent = t.footer_desc;
+    const logoSub = footer.querySelector('.logo-sub'); if(logoSub) logoSub.textContent = t.logo_sub_footer;
+    const fcolH4s = footer.querySelectorAll('.fcol h4');
+    if(fcolH4s[0]) fcolH4s[0].textContent = t.footer_nav;
+    if(fcolH4s[1]) fcolH4s[1].textContent = t.footer_services;
+    if(fcolH4s[2]) fcolH4s[2].textContent = t.footer_legal;
+    const fcolUls = footer.querySelectorAll('.fcol ul');
+    [t.footer_nav_links, t.footer_svc_links, t.footer_leg_links].forEach((links, ci) => {
+      if(!fcolUls[ci]) return;
+      const lis = fcolUls[ci].querySelectorAll('a');
+      links.forEach((txt, li) => { if(lis[li]) lis[li].textContent = txt; });
+    });
+    const fbottom = footer.querySelectorAll('.footer-bottom span');
+    if(fbottom[0]) fbottom[0].textContent = t.footer_copy;
+    if(fbottom[1]) fbottom[1].textContent = t.footer_addr;
+  }
+
+  // FAB
+  const fab = document.querySelector('.fab');
+  if(fab) fab.textContent = t.fab;
+
+  // Map open link text (static map)
+  const mapLinks = document.querySelectorAll('.map-static-link');
+  mapLinks.forEach(a => a.setAttribute('aria-label', t.map_open.replace(' →','').replace(' ←','')));
+}
+
+// Init: set FR on load
+setLang('fr');
+</script>
+
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+// ACCORDION — pill strip toggles accordion panels
+// ══════════════════════════════════════════════════════════════════
+let _currentDomain = 'intelligence';
+
+function openDomain(domain, btn) {
+  // Toggle: if same pill clicked again, close it
+  if (_currentDomain === domain && btn.classList.contains('active')) {
+    btn.classList.remove('active');
+    const panel = document.getElementById('acc-' + domain);
+    if (panel) panel.classList.remove('open');
+    _currentDomain = null;
+    return;
+  }
+
+  // Deactivate all pills & close all panels
+  document.querySelectorAll('.dpill').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.acc-panel').forEach(p => p.classList.remove('open'));
+
+  // Activate selected
+  btn.classList.add('active');
+  const panel = document.getElementById('acc-' + domain);
+  if (panel) panel.classList.add('open');
+  _currentDomain = domain;
+
+  // Smooth scroll so panel is visible on mobile
+  if (panel) {
+    setTimeout(() => {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 80);
+  }
+}
+
+// ── Lang integration ──────────────────────────────────────────────
+function applyLangExpertise(lang) {
+  const introMap = {
+    fr: {
+      tag:  "Outils d'évaluation",
+      h2:   "Expertise <em>Clinique</em>",
+      lead: "Cliquez sur un domaine pour découvrir les tests associés, classés par sous-type et par population.",
+      btn:  "Réserver une évaluation",
+    },
+    en: {
+      tag:  "Assessment tools",
+      h2:   "Clinical <em>Expertise</em>",
+      lead: "Click a domain to explore its associated tests, organised by sub-type and age group.",
+      btn:  "Book an assessment",
+    },
+    ar: {
+      tag:  "أدوات التقييم",
+      h2:   "الخبرة <em>السريرية</em>",
+      lead: "انقر على مجال لاستعراض الاختبارات المرتبطة به، مصنَّفة حسب النوع والفئة العمرية.",
+      btn:  "احجز تقييمًا",
+    },
+  };
+
+  const m = introMap[lang];
+  const eTag  = document.getElementById('exp-tag');  if(eTag)  eTag.textContent = m.tag;
+  const eH2   = document.getElementById('exp-h2');   if(eH2)   eH2.innerHTML   = m.h2;
+  const eLead = document.getElementById('exp-lead'); if(eLead) eLead.textContent= m.lead;
+  const eBtn  = document.getElementById('exp-btn');  if(eBtn)  eBtn.textContent = m.btn;
+
+  // Pill labels
+  document.querySelectorAll('.dpill[data-' + lang + ']').forEach(pill => {
+    const lbl = pill.querySelector('.dpill-lbl');
+    if (lbl) {
+      // strip emoji from data attr for lbl
+      const full = pill.getAttribute('data-' + lang);
+      // keep full text with emoji in lbl
+      lbl.innerHTML = full.replace(/^[^\w\u0600-\u06FF]+/, '').trim();
+    }
+  });
+
+  // Accordion panel h3 & p — via data-fr/en/ar
+  ['intelligence','memoire','attention','executive','tdah','neuro','perso','schemas'].forEach(d => {
+    const titleEl = document.getElementById('acc-' + d + '-title');
+    const subEl   = document.getElementById('acc-' + d + '-sub');
+    if(titleEl) titleEl.innerHTML = titleEl.getAttribute('data-' + lang) || titleEl.innerHTML;
+    if(subEl)   subEl.textContent = subEl.getAttribute('data-' + lang)   || subEl.textContent;
+  });
+
+  // Sub-category labels
+  document.querySelectorAll('.subcat-label[data-' + lang + ']').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+
+  // Age badges
+  const bl = {
+    fr: { child: 'Enfant', adult: 'Adulte', both: 'Tous âges' },
+    en: { child: 'Child',  adult: 'Adult',  both: 'All ages'  },
+    ar: { child: 'طفل',    adult: 'بالغ',   both: 'كل الأعمار' },
+  };
+  document.querySelectorAll('.abadge').forEach(b => {
+    if(b.classList.contains('ab-child'))      b.textContent = bl[lang].child;
+    else if(b.classList.contains('ab-adult')) b.textContent = bl[lang].adult;
+    else if(b.classList.contains('ab-both'))  b.textContent = bl[lang].both;
+  });
+
+  // Legend
+  const lgMap = {
+    fr: " 6–16 ans &nbsp;·&nbsp; <span class='abadge ab-adult'>Adulte</span> 16+ ans &nbsp;·&nbsp; <span class='abadge ab-both'>Tous âges</span> Tous groupes d'âge",
+    en: " Ages 6–16 &nbsp;·&nbsp; <span class='abadge ab-adult'>Adult</span> Ages 16+ &nbsp;·&nbsp; <span class='abadge ab-both'>All ages</span> All age groups",
+    ar: " 6–16 سنة &nbsp;·&nbsp; <span class='abadge ab-adult'>بالغ</span> 16+ سنة &nbsp;·&nbsp; <span class='abadge ab-both'>كل الأعمار</span> جميع الفئات العمرية",
+  };
+  const leg = document.getElementById('acc-legend');
+  if(leg) leg.innerHTML = "<span class='abadge ab-child'>" + bl[lang].child + "</span>" + lgMap[lang];
+}
+
+// Wrap setLang
+const _prevSetLangACC = setLang;
+setLang = function(lang) {
+  _prevSetLangACC(lang);
+  applyLangExpertise(lang);
+};
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  // Open first domain on load
+  const firstPill = document.querySelector('.dpill[data-domain="intelligence"]');
+  if (firstPill) openDomain('intelligence', firstPill);
+});
+</script>
 </body>
-</html>
