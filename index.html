@@ -168,44 +168,25 @@
 
     .hero-content { position: relative; z-index: 1; padding: 2.5rem 1.25rem 3rem; max-width: 640px; padding-top: 4.5rem; }
 
-        .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.55rem;
-      padding: 0.5rem 0.65rem 0.5rem 0.85rem;
-      border: 2px solid var(--gold);
-      border-radius: 100px;
-      text-decoration: none; cursor: pointer;
-      background: rgba(212,170,106,0.12);
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.42rem 1.1rem; border: 2px solid var(--border-click); border-radius: 100px; background: rgba(212,170,106,0.1);
+      font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
       margin-bottom: 1.5rem;
-      transition: all 0.22s ease;
+      text-decoration: none; cursor: pointer;
+      transition: background var(--trans), border-color var(--trans), box-shadow var(--trans);
       -webkit-tap-highlight-color: transparent;
-      animation: badgePulse 2.8s ease-in-out infinite;
     }
-    @keyframes badgePulse {
-      0%   { box-shadow: 0 0 0 0 rgba(212,170,106,0.45); }
-      65%  { box-shadow: 0 0 0 9px rgba(212,170,106,0); }
-      100% { box-shadow: 0 0 0 0 rgba(212,170,106,0); }
-    }
-    .badge-pin { font-size: 1rem; line-height: 1; flex-shrink: 0; }
-    .badge-text {
-      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--gold-lt); font-weight: 700; font-family: var(--font-b);
-    }
-    .badge-cta {
-      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.05em;
-      text-transform: uppercase;
-      background: var(--gold); color: #0a0800;
-      border-radius: 100px; padding: 0.22rem 0.65rem;
-      white-space: nowrap; transition: background 0.2s;
-      flex-shrink: 0;
-    }
-    .hero-badge:hover .badge-cta,
-    .hero-badge:active .badge-cta { background: var(--gold-lt); }
     .hero-badge:hover, .hero-badge:active {
-      background: rgba(212,170,106,0.22);
-      border-color: var(--gold-lt);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(212,170,106,0.35);
-      animation: none;
+      background: rgba(201,169,110,0.1);
+      border-color: var(--gold);
+      box-shadow: 0 0 16px rgba(201,169,110,0.2);
+    }
+    /* small map pin icon after text */
+    .hero-badge::after {
+      content: " ↗";
+      font-size: 0.6rem;
+      opacity: 0.7;
     }
     .badge-dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; animation: pulse 2.2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
@@ -940,11 +921,7 @@
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
-    <a href="https://maps.app.goo.gl/uXzgzYdpFrAYNfMq7" target="_blank" rel="noopener" class="hero-badge a1" aria-label="Voir le cabinet sur Google Maps">
-      <span class="badge-pin">📍</span>
-      <span class="badge-text">Cabinet — Berges du Lac, Tunis</span>
-      <span class="badge-cta">Voir sur Maps →</span>
-    </a>
+    <a href="https://maps.google.com/?q=Bureau+N102+Résidence+Errihab+Rue+Malaren+Berges+du+Lac+Tunis" target="_blank" rel="noopener" class="hero-badge a1" aria-label="Voir le cabinet sur Google Maps"><div class="badge-dot"></div>Cabinet — Berges du Lac, Tunis</a>
     <h1 class="hero-name a2">Mr. Aymen<br><em>KHALSI</em></h1>
     <div class="hero-tags a3">
       <span class="htag">Psychothérapeute</span>
@@ -1025,7 +1002,7 @@
         <div class="card-head"><div class="card-icon">📋</div><h3 class="card-title">Certificat — Médecine Roumanie</h3></div>
         <p class="card-desc">Bilans de personnalité pour l'inscription en faculté de médecine en Roumanie (NEO PI-R, YSQ).</p>
         <div class="card-links">
-          <a class="card-link" href="https://koalendar.com/e/prendre-un-rendez-vous-avec-aymen-khalsi" target="_blank">Test NEO PI-R <span class="link-arrow">→</span></a>
+          <a class="card-link" href="https://koalendar.com/e/th-individuelle100-dt45min-copy?month=2026-01&duration=45" target="_blank">Test NEO PI-R <span class="link-arrow">→</span></a>
           <a class="card-link" href="https://koalendar.com/e/test-neo-pi-r350-dt1h30min-copy" target="_blank">Test YSQ-S1 / YSQ-S3 <span class="link-arrow">→</span></a>
         </div>
       </div>
@@ -1656,7 +1633,7 @@
 
     <div class="map-block reveal">
       <div class="map-wrap">
-        <a href="https://maps.app.goo.gl/uXzgzYdpFrAYNfMq7" target="_blank" class="map-static-link" aria-label="Ouvrir dans Google Maps">
+        <a href="https://maps.google.com/?q=Residence+Errihab+Rue+Malaren+Les+Berges+du+Lac+Tunis" target="_blank" class="map-static-link" aria-label="Ouvrir dans Google Maps">
           <div class="map-static">
             <div class="map-pin-wrap">
               <div class="map-pin">📍</div>
@@ -1697,7 +1674,7 @@
         <div class="ccard-body">
           <div class="ccard-lbl">Adresse</div>
           <div class="ccard-val">Bureau N102, BLOC "B"<br>Résidence ERRIHAB, Rue MALAREN<br>Berges du Lac 1 — Tunis 1053</div>
-          <a href="https://maps.app.goo.gl/uXzgzYdpFrAYNfMq7" target="_blank" class="ccard-link">Ouvrir dans Google Maps →</a>
+          <a href="https://maps.google.com/?q=Residence+Errihab+Rue+Malaren+Les+Berges+du+Lac+Tunis" target="_blank" class="ccard-link">Ouvrir dans Google Maps →</a>
         </div>
       </div>
 
@@ -1808,7 +1785,7 @@
     const origin = document.getElementById('originInput').value.trim();
     const dest = encodeURIComponent('Bureau N102 Résidence Errihab Rue Malaren Berges du Lac Tunis');
     if (!origin) { document.getElementById('originInput').focus(); return; }
-    window.open(`https://maps.app.goo.gl/uXzgzYdpFrAYNfMq7`, '_blank');
+    window.open(`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${dest}&travelmode=${travelMode}`, '_blank');
   }
   document.getElementById('originInput').addEventListener('keydown', e => { if (e.key === 'Enter') calcRoute(); });
 
@@ -2215,11 +2192,7 @@ function setLang(lang) {
 
   // Hero
   const heroBadge = document.querySelector('.hero-badge');
-  if(heroBadge) {
-    const ctaMap = { fr: 'Voir sur Maps →', en: 'View on Maps →', ar: 'عرض على الخريطة ←' };
-    heroBadge.innerHTML = '<span class="badge-pin">📍</span><span class="badge-text">' + t.hero_badge + '</span><span class="badge-cta">' + (ctaMap[lang] || ctaMap.fr) + '</span>';
-    heroBadge.setAttribute('aria-label', t.hero_badge);
-  }
+  if(heroBadge) { heroBadge.innerHTML = '<div class="badge-dot"></div>' + t.hero_badge; heroBadge.setAttribute('aria-label', t.hero_badge); }
   const heroTags = document.querySelectorAll('.htag');
   t.hero_tags.forEach((txt, i) => { if(heroTags[i]) heroTags[i].textContent = txt; });
   const heroDesc = document.querySelector('.hero-desc');
