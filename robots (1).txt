@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://neuropsyaymenkhalsi.github.io/sitemap.xml
